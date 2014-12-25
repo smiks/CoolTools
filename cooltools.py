@@ -1,8 +1,9 @@
 __author__  = "smiks"
-__version__ = "0.2"
+__version__ = "0.3"
 
 from math import sqrt
 from itertools import permutations
+from collections import defaultdict
 
 class cooltools:
 
@@ -13,37 +14,37 @@ class cooltools:
 
     # sieve of eratosthenes :: returns dictionary with key:value where key is number
     # and value is boolean - true if prime false if not
-    def esieve(self, num):
-        primes = { i:(not(i == 2 or i % 2 == 0 or i == 0 or i == 1)) for i in range(num+1) }
+    def ESieve(self, n):
+        primes = { i:(not(i == 2 or i % 2 == 0 or i == 0 or i == 1)) for i in range(n+1) }
         primes[2] = True
-        limit   = sqrt(num) + 1
+        limit   = sqrt(n) + 1
         i       = 3
         while i <= limit:
             if primes[i]:
                 j = 2 * i
-                while j < num:
+                while j < n:
                     primes[j] = False
                     j += i
             i += 2
         return primes
 
     # cache function :: used for cache variables in __init__
-    def primesC(self, num):
-        return [i for i,j in self.esieve(num).items() if j ]
+    def primesC(self, n):
+        return [i for i,j in self.ESieve(n).items() if j ]
 
     # function generates list of primes
-    def primes(self, num):
-        if num == 100:
+    def primes(self, n):
+        if n == 100:
             return self.firstHundredPrimes
-        if num == 500:
+        if n == 500:
             return self.firstFiveHundredPrimes
-        if num == 1000:
+        if n == 1000:
             return self.firstThousandPrimes
-        return [i for i,j in self.esieve(num).items() if j ]
+        return [i for i,j in self.ESieve(n).items() if j ]
 
     # generator generating prime numbers
-    def primesGenerator(self, num):
-        return ( i for i,j in self.esieve(num).items() if j )
+    def primesGenerator(self, n):
+        return ( i for i,j in self.ESieve(n).items() if j )
 
     def isPrime(self, n):
         if n < 2:
@@ -70,7 +71,7 @@ class cooltools:
         return True
 
     # function returns primefactors of number a
-    def primefactors(self, a):
+    def primeFactors(self, a):
         factors = list()
         if sqrt(a) > 1000:
             primelist = self.primes((a // 2) + 1)
@@ -110,4 +111,18 @@ class cooltools:
         for i in permutations(lst):
             yield int(''.join(map(str,i)))
 
-    # def isPandigital(a)
+    # function checks if given number is pandigital
+    # lst accepts list or set which is used as rule.
+    # Eg. isPandigital(n, {1,2,3}) it will check if n is pandigital number with digits 1, 2 and 3
+    def isPandigital(self, num, lst):
+        if len(str(num)) != len(lst):
+            return False
+        d = defaultdict(int)
+        for i in str(num):
+            i = int(i)
+            if i not in lst:
+                return False
+            d[i] += 1
+            if d[i] > 1:
+                return False
+        return True
