@@ -1,3 +1,6 @@
+__author__  = "smiks"
+__version__ = "0.2"
+
 from math import sqrt
 from itertools import permutations
 
@@ -103,6 +106,8 @@ class cooltools:
 
     # generator for pandigital numbers
     # receives list which contains digits
-    def pandigitals(self, lst):
+    def pandigitalsGenerator(self, lst):
         for i in permutations(lst):
             yield int(''.join(map(str,i)))
+
+    # def isPandigital(a)
