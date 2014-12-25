@@ -1,5 +1,5 @@
 __author__  = "smiks"
-__version__ = "0.3"
+__version__ = "0.3.1"
 
 from math import sqrt
 from itertools import permutations
@@ -73,7 +73,9 @@ class cooltools:
     # function returns primefactors of number a
     def primeFactors(self, a):
         factors = list()
-        if sqrt(a) > 1000:
+        if self.isPrime(a):
+            return [a]
+        if (a // 2) > 1000:
             primelist = self.primes((a // 2) + 1)
         else:
             primelist = self.firstThousandPrimes
