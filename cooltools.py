@@ -1,4 +1,5 @@
 from math import sqrt
+from itertools import permutations
 
 class cooltools:
 
@@ -7,7 +8,7 @@ class cooltools:
         self.firstFiveHundredPrimes = self.primesC(500)     # little cache
         self.firstThousandPrimes = self.primesC(1000)       # little cache
 
-    # sieve of erathostenes :: returns dictionary with key:value where key is number
+    # sieve of eratosthenes :: returns dictionary with key:value where key is number
     # and value is boolean - true if prime false if not
     def esieve(self, num):
         primes = { i:(not(i == 2 or i % 2 == 0 or i == 0 or i == 1)) for i in range(num+1) }
@@ -23,7 +24,7 @@ class cooltools:
             i += 2
         return primes
 
-    # cache function :: used for cache variable in __init__
+    # cache function :: used for cache variables in __init__
     def primesC(self, num):
         return [i for i,j in self.esieve(num).items() if j ]
 
@@ -44,12 +45,22 @@ class cooltools:
     def isPrime(self, n):
         if n < 2:
             return False
+
+        # taking care of first 10 integers
         if n == 4 or n == 6 or n == 8 or n == 9 or n == 10:
             return False
         if n == 2 or n == 3 or n == 5 or n == 7 or n == 11:
             return True
+
+        # taking care of multipliers (of first 10 integers)
         if n > 11 and (n%2 == 0 or n%3 == 0 or n%5 == 0 or n%7 == 0 or n%11 == 0):
             return False
+
+        # using cache to check first thousand primes
+        if n in self.firstThousandPrimes:
+            return True
+
+        #checking the rest
         for i in range(5, int(sqrt(n)) + 1, 6):
             if n % i == 0 or n % (i + 2) == 0:
                 return False
@@ -89,3 +100,9 @@ class cooltools:
                 tmin = min(tmin, j)
                 tmax = max(tmax, i)
         return (tmin, tmax)
+
+    # generator for pandigital numbers
+    # receives list which contains digits
+    def pandigitals(self, lst):
+        for i in permutations(lst):
+            yield int(''.join(map(str,i)))
