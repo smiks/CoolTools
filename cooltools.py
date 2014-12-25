@@ -1,5 +1,5 @@
 __author__  = "smiks"
-__version__ = "0.3.1"
+__version__ = "0.4"
 
 from math import sqrt
 from itertools import permutations
@@ -8,9 +8,7 @@ from collections import defaultdict
 class cooltools:
 
     def __init__(self):
-        self.firstHundredPrimes = self.primesC(100)         # little cache
-        self.firstFiveHundredPrimes = self.primesC(500)     # little cache
-        self.firstThousandPrimes = self.primesC(1000)       # little cache
+        self.firstThousandPrimes = self.primesC(8000)       # little cache ( generates first 1007 prime numbers)
 
     # sieve of eratosthenes :: returns dictionary with key:value where key is number
     # and value is boolean - true if prime false if not
@@ -30,21 +28,50 @@ class cooltools:
 
     # cache function :: used for cache variables in __init__
     def primesC(self, n):
-        return {i for i,j in self.ESieve(n).items() if j }
+        return [i for i,j in self.ESieve(n).items() if j ]
 
-    # function generates list of primes
+
+    def firstNPrimes(self, n):
+        if n < 0:
+            return [];
+        if n <= 1000:
+            return self.firstThousandPrimes[:n]
+        primes  = self.firstThousandPrimes[:1000]
+        i       = primes[999]
+        counter = 1000
+        while True:
+            if counter == n:
+                return primes
+            if self.isPrime(i):
+                primes.append(i)
+                counter += 1
+            i += 1
+
+
+
+
+    # function generates list of primes below n
     def primes(self, n):
-        if n == 100:
-            return self.firstHundredPrimes
-        if n == 500:
-            return self.firstFiveHundredPrimes
-        if n == 1000:
-            return self.firstThousandPrimes
+        if n < 0:
+            return [];
+
+        # if n < 7000 definitely in firstThousandPrimes list
+        if n <= 7000:
+            return [i for i in self.firstThousandPrimes if i < n]
         return [i for i,j in self.ESieve(n).items() if j ]
 
     # generator generating prime numbers
     def primesGenerator(self, n):
         return ( i for i,j in self.ESieve(n).items() if j )
+
+    # used for internal functions
+    def xprimesGenerator(self):
+        counter = 1
+        while True:
+            if self.isPrime(counter):
+                yield counter
+            counter += 1
+
 
     def isPrime(self, n):
         if n < 2:
@@ -65,7 +92,8 @@ class cooltools:
             return True
 
         #checking the rest
-        for i in range(5, int(sqrt(n)) + 1, 6):
+        start = self.firstThousandPrimes[len(self.firstThousandPrimes)-1]
+        for i in range(start, int(sqrt(n)) + 1, 6):
             if n % i == 0 or n % (i + 2) == 0:
                 return False
         return True
