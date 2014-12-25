@@ -30,7 +30,7 @@ class cooltools:
 
     # cache function :: used for cache variables in __init__
     def primesC(self, n):
-        return [i for i,j in self.ESieve(n).items() if j ]
+        return {i for i,j in self.ESieve(n).items() if j }
 
     # function generates list of primes
     def primes(self, n):
