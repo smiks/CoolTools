@@ -41,6 +41,20 @@ class cooltools:
     def primesGenerator(self, num):
         return ( i for i,j in self.esieve(num).items() if j )
 
+    def isPrime(self, n):
+        if n < 2:
+            return False
+        if n == 4 or n == 6 or n == 8 or n == 9 or n == 10:
+            return False
+        if n == 2 or n == 3 or n == 5 or n == 7 or n == 11:
+            return True
+        if n > 11 and (n%2 == 0 or n%3 == 0 or n%5 == 0 or n%7 == 0 or n%11 == 0):
+            return False
+        for i in range(5, int(sqrt(n)) + 1, 6):
+            if n % i == 0 or n % (i + 2) == 0:
+                return False
+        return True
+
     # function returns primefactors of number a
     def primefactors(self, a):
         factors = list()
