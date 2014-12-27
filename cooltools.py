@@ -1,5 +1,5 @@
 __author__  = "smiks"
-__version__ = "0.5"
+__version__ = "0.5.1"
 
 from math import sqrt
 from itertools import permutations
@@ -58,8 +58,7 @@ class cooltools:
                 primes.append(i)
                 counter += 1
             i += 1
-
-
+        return primes
 
 
     # function generates list of primes below n
