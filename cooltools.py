@@ -1,5 +1,5 @@
 __author__  = "smiks"
-__version__ = "0.4"
+__version__ = "0.5"
 
 from math import sqrt
 from itertools import permutations
@@ -156,3 +156,10 @@ class cooltools:
             if d[i] > 1:
                 return False
         return True
+
+    # generates n!
+    def factorialsGenerator(self, n):
+        tmp = 1
+        for i in range(1,n+1):
+            tmp *= i
+            yield tmp
