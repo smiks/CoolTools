@@ -15,3 +15,4 @@ It has following functions:
 - findMinMax
 - pandigitalsGenerator
 - isPandigital
+- factorialsGenerator
