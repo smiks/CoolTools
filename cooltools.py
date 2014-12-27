@@ -13,6 +13,10 @@ class cooltools:
     # sieve of eratosthenes :: returns dictionary with key:value where key is number
     # and value is boolean - true if prime false if not
     def ESieve(self, n):
+        try:
+            int(n)
+        except ValueError:
+            return {}
         primes = { i:(not(i == 2 or i % 2 == 0 or i == 0 or i == 1)) for i in range(n+1) }
         primes[2] = True
         limit   = sqrt(n) + 1
@@ -28,10 +32,18 @@ class cooltools:
 
     # cache function :: used for cache variables in __init__
     def primesC(self, n):
+        try:
+            int(n)
+        except ValueError:
+            return []
         return [i for i,j in self.ESieve(n).items() if j ]
 
 
     def firstNPrimes(self, n):
+        try:
+            int(n)
+        except ValueError:
+            return []
         if n < 0:
             return [];
         if n <= 1000:
@@ -52,9 +64,12 @@ class cooltools:
 
     # function generates list of primes below n
     def primes(self, n):
+        try:
+            int(n)
+        except ValueError:
+            return []
         if n < 0:
             return [];
-
         # if n < 7000 definitely in firstThousandPrimes list
         if n <= 7000:
             return [i for i in self.firstThousandPrimes if i < n]
@@ -62,6 +77,10 @@ class cooltools:
 
     # generator generating prime numbers
     def primesGenerator(self, n):
+        try:
+            int(n)
+        except ValueError:
+            return []
         return ( i for i,j in self.ESieve(n).items() if j )
 
     # used for internal functions
@@ -74,6 +93,12 @@ class cooltools:
 
 
     def isPrime(self, n):
+        try:
+            int(n)
+        except ValueError:
+            return -1
+
+        # if less than 2 - not a prime
         if n < 2:
             return False
 
@@ -99,24 +124,32 @@ class cooltools:
         return True
 
     # function returns primefactors of number a
-    def primeFactors(self, a):
+    def primeFactors(self, n):
+        try:
+            int(n)
+        except ValueError:
+            return []
         factors = list()
-        if self.isPrime(a):
-            return [a]
-        if (a // 2) > 1000:
-            primelist = self.primes((a // 2) + 1)
+        if self.isPrime(n):
+            return [n]
+        if (n // 2) > 1000:
+            primelist = self.primes((n // 2) + 1)
         else:
             primelist = self.firstThousandPrimes
         for i in primelist:
-            while a%i == 0:
-                a = a // i
+            while n%i == 0:
+                n = n // i
                 factors.append(i)
-            if a == 1:
+            if n == 1:
                 break
         return factors
 
     # generator generating fibonacci numbers
     def fibonacciGenerator(self, n):
+        try:
+            int(n)
+        except ValueError:
+            return False
         a = b = 1
         for i in range(n):
             yield a
@@ -126,7 +159,14 @@ class cooltools:
     def findMinMax(self, list):
         tmin = list[0]
         tmax = list[0]
+        if len(list)%2 != 0:
+            list.append(list[0])
         for i,j in zip(list[0::2], list[1::2]):
+            try:
+                int(i)
+                int(j)
+            except ValueError:
+                return False
             if i < j:
                 tmin = min(tmin, i)
                 tmax = max(tmax, j)
@@ -138,17 +178,31 @@ class cooltools:
     # generator for pandigital numbers
     # receives list which contains digits
     def pandigitalsGenerator(self, lst):
+        for i in lst:
+            try:
+                int(i)
+            except ValueError:
+                return []
+        if any(i < 0 for i in lst):
+            return -1
         for i in permutations(lst):
             yield int(''.join(map(str,i)))
 
     # function checks if given number is pandigital
     # lst accepts list or set which is used as rule.
     # Eg. isPandigital(n, {1,2,3}) it will check if n is pandigital number with digits 1, 2 and 3
-    def isPandigital(self, num, lst):
-        if len(str(num)) != len(lst):
+    def isPandigital(self, n, lst):
+        for i in lst:
+            try:
+                int(n)
+            except ValueError:
+                return False
+        if n < 1:
+            return False
+        if len(str(n)) != len(lst):
             return False
         d = defaultdict(int)
-        for i in str(num):
+        for i in str(n):
             i = int(i)
             if i not in lst:
                 return False
@@ -156,10 +210,3 @@ class cooltools:
             if d[i] > 1:
                 return False
         return True
-
-    # generates n!
-    def factorialsGenerator(self, n):
-        tmp = 1
-        for i in range(1,n+1):
-            tmp *= i
-            yield tmp
