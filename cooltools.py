@@ -147,6 +147,8 @@ class cooltools:
 
     # returns number of divisors
     def numDivisors(self, n):
+        if n == 1:
+            return 1
         divs = Counter(self.primeFactors(n)).items()
         return reduce(lambda x,y: x*y, [i+1 for _,i in divs])
 
@@ -216,4 +218,3 @@ class cooltools:
             if d[i] > 1:
                 return False
         return True
-    
