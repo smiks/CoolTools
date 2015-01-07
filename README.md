@@ -11,6 +11,7 @@ It has following functions:
 - xprimesGenerator
 - isPrime
 - primeFactors
+- numDivisors
 - fibonacciGenerator
 - findMinMax
 - pandigitalsGenerator
