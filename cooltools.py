@@ -4,6 +4,8 @@ __version__ = "0.5.1"
 from math import sqrt
 from itertools import permutations
 from collections import defaultdict
+from functools import reduce
+from collections import Counter
 
 class cooltools:
 
@@ -143,6 +145,11 @@ class cooltools:
                 break
         return factors
 
+    # returns number of divisors
+    def numDivisors(self, n):
+        divs = Counter(self.primeFactors(n)).items()
+        return reduce(lambda x,y: x*y, [i+1 for _,i in divs])
+
     # generator generating fibonacci numbers
     def fibonacciGenerator(self, n):
         try:
@@ -209,3 +216,4 @@ class cooltools:
             if d[i] > 1:
                 return False
         return True
+    
