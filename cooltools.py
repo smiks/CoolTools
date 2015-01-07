@@ -1,5 +1,5 @@
 __author__  = "smiks"
-__version__ = "0.5.1"
+__version__ = "0.6"
 
 from math import sqrt
 from itertools import permutations
@@ -147,6 +147,8 @@ class cooltools:
 
     # returns number of divisors
     def numDivisors(self, n):
+        if n < 1:
+            return 0
         if n == 1:
             return 1
         divs = Counter(self.primeFactors(n)).items()
