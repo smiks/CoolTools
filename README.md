@@ -3,7 +3,8 @@ CoolTools v0.7
 
 cooltools is a small module I made
 
-It has followin features.
+It has following features.
+
 Class primes:
 - ESieve
 - firstNPrimes
