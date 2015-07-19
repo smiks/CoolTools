@@ -5,25 +5,25 @@ cooltools is a small module I made
 
 It has followin features.
 Class primes:
-	- ESieve
-	- firstNPrimes
-	- primes
-	- primesGenerator
-	- xprimesGenerator
-	- isPrime
-	- primeFactors
+- ESieve
+- firstNPrimes
+- primes
+- primesGenerator
+- xprimesGenerator
+- isPrime
+- primeFactors
 
 Class numtools:
-	- numDivisors
-	- fibonacciGenerator
-	- findMinMax
-	- pandigitalsGenerator
-	- isPandigital
+- numDivisors
+- fibonacciGenerator
+- findMinMax
+- pandigitalsGenerator
+- isPandigital
 
 Class joins:
-	- fullOuterJoin
+- fullOuterJoin
 
 Class sorts:
-	- counting sort
-	- heap sort
-	- isSorted
+- counting sort
+- heap sort
+- isSorted
