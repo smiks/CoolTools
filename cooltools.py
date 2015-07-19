@@ -1,14 +1,15 @@
 __author__  = "smiks"
-__version__ = "0.6"
+__version__ = "0.7"
 
 from math import sqrt
-from itertools import permutations
+from itertools import permutations, product, chain
 from collections import defaultdict
 from functools import reduce
 from collections import Counter
+from heapq import heapify, heappop
 
-class cooltools:
 
+class primes:
     def __init__(self):
         self.firstThousandPrimes = self.primesC(8000)       # little cache ( generates first 1007 prime numbers)
 
@@ -145,13 +146,17 @@ class cooltools:
                 break
         return factors
 
+
+class numtools:
+
     # returns number of divisors
     def numDivisors(self, n):
         if n < 1:
             return 0
         if n == 1:
             return 1
-        divs = Counter(self.primeFactors(n)).items()
+        pfactors = primes.primeFactors(n)
+        divs = Counter(pfactors).items()
         return reduce(lambda x,y: x*y, [i+1 for _,i in divs])
 
     # generator generating fibonacci numbers
@@ -220,3 +225,103 @@ class cooltools:
             if d[i] > 1:
                 return False
         return True
+
+class joins:
+    def fullOuterJoin(self, *matrices):
+        """
+        :param matrices: list of matrices
+        :return: full outer join of given matrices
+        """
+        matrices = list(chain(*matrices))
+        p = [i for i in product(*matrices)]
+        ret = [list(chain(*i)) for i in p]
+        return ret
+
+
+class sorts:
+
+    ''' Time complexity O(n+k) '''
+    def countingSort(self, s, k):
+        """ create k+1 buckets """
+        nbuckets = k+1
+        counter = [0 for i in range(nbuckets)]
+        for i in s:
+            counter[i] += 1
+        n = 0
+        for i in range(nbuckets):
+            while 0 < counter[i]:
+                s[n] = i
+                n += 1
+                counter[i] -= 1
+        return s
+
+
+    def heapSort(self, s):
+        heapify(s)
+        return [heappop(s) for i in range(len(s))]
+
+    ''' checks if list is sorted in O(n) '''
+    def isSorted(self, s, order="asc"):
+        prev = s[0]
+        for i in s:
+            if i < prev and order == "asc":
+                return False
+            elif i > prev and order == "desc":
+                return False
+            prev = i
+        return True
+
+
+if __name__ == "__main__":
+    from random import randint
+    print("TESTING")
+
+    ''' testing primes '''
+    primes = primes()
+    a = 10
+    fnprimes = primes.firstNPrimes(a)
+    print("First ", a, " primes")
+    print(fnprimes)
+
+    ''' testing numtools '''
+    nums = numtools()
+    a = 10
+    ndiv = nums.numDivisors(a)
+    print(a, " has ", ndiv, " divisors")
+
+    ''' testing joins '''
+    Join = joins()
+    m1 = [['+','-']]
+    m2 = [['1','2','3'],['4','5','6']]
+    m3 = [['a','b','c'],['d','e','f'], ['g','h','i']]
+    m1 = [['+'],['-']]
+    m2 = [['1'],['2'],['3']]
+    m3 = [['a'],['b'],['c']]
+    m4 = [['X'],['Z']]
+
+    matrices = [m1,m2,m3,m4]
+    res = Join.fullOuterJoin(matrices)
+    for i in res:
+        print(i)
+
+    ''' testing sorts '''
+    unsorted = [randint(1,50) for i in range(50)]
+    sorts = sorts()
+    sort = sorts.heapSort(unsorted[::])
+    if sort == sorted(unsorted):
+        print("List is sorted using heap sort")
+    else:
+        print("List is NOT sorted (using heapsort)")
+
+    if not sorts.isSorted(unsorted):
+        print("Unsorted list is not sorted")
+    if sorts.isSorted(sort):
+        print("Sorted list is sorted")
+    if sorts.isSorted(sort) and sort == sorted(sort):
+        print("Looks like isSorted works")
+
+    sort = sorts.countingSort(unsorted, len(unsorted))
+    if sort == sorted(unsorted):
+        print("List is sorted using counting sort")
+    else:
+        print("List is NOT sorted (using counting sort)")
