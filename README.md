@@ -15,7 +15,7 @@ Class Primes:
 Class Numtools:
 - num_divisors
 - fibonacci_generator
-- find_min_,ax
+- find_minmax
 - pandigitals_generator
 - is_pandigital
 

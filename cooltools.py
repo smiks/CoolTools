@@ -386,17 +386,25 @@ if __name__ == "__main__":
     fnprimes = primes.first_n_primes(a)
     print("First ", a, " primes")
     print(fnprimes)
-
-    print("primes(13): ", end="")
+    print("Testing if 2 and 4 are primes: ", primes.is_prime(2), primes.is_prime(4))
+    print("Testing function primes(13): ", end="")
     print(primes.primes(13))
-    print()
-
+    print("Testing prime factors of 10 and 13: ", primes.prime_factors(10), primes.prime_factors(13))
     ''' testing numtools '''
     nums = Numtools()
     a = 10
     ndiv = nums.num_divisors(a)
     print(a, " has ", ndiv, " divisors")
-
+    print("Generating fibonacci numbers n:10")
+    for i in nums.fibonacci_generator(10):
+        print(i, end=", ")
+    print()
+    print("Finding min and max in list: ", fnprimes)
+    print(nums.find_minmax(fnprimes))
+    print()
+    print("Testing if numbers 234 and 232 are pandigital numbers ", nums.is_pandigital(234, [2,3,4]),
+                                                                    nums.is_pandigital(232, [2,3,4]))
+    print()
     ''' testing joins '''
     Join = Joins()
     m1 = [['+', '-']]
@@ -433,3 +441,9 @@ if __name__ == "__main__":
         print("List is sorted using counting sort")
     else:
         print("List is NOT sorted (using counting sort)")
+
+    rfnprimes = fnprimes[::-1]
+    print("Checking if list ", rfnprimes, " is sorted DESC")
+    print(sorts.is_sorted(rfnprimes, order="DESC"))
+    print("Checking if list ", rfnprimes, " is sorted ASC")
+    print(sorts.is_sorted(rfnprimes, order="ASC"))
