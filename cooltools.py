@@ -1,5 +1,11 @@
-__author__  = "smiks"
-__version__ = "0.7"
+"""
+Cooltools module has bunch of useful functions.
+Module can be used for work with prime numbers, fibonacci sequence,
+some basic operations on lists and pandigital numbers.
+"""
+
+__author__ = "smiks"
+__version__ = "0.7.5"
 
 from math import sqrt
 from itertools import permutations, product, chain
@@ -9,21 +15,39 @@ from collections import Counter
 from heapq import heapify, heappop
 
 
-class primes:
-    def __init__(self):
-        self.firstThousandPrimes = self.primesC(8000)       # little cache ( generates first 1007 prime numbers)
+class Primes:
+    """
+    Class primarily meant for work with prime numbers.
+    Finding primes, generating primes, prime factors and checking
+    if certain number is prime.
+    """
 
-    # sieve of eratosthenes :: returns dictionary with key:value where key is number
-    # and value is boolean - true if prime false if not
-    def ESieve(self, n):
+    def __init__(self):
+        """
+        Used only for cache. It saves first 1007 primes to object.
+        These primes are later used as cache so it doesn't calculate first 1000 primes
+        all over again.
+        :return:
+        """
+        self.firstThousandPrimes = self.primesc(8000)
+
+    @staticmethod
+    def esieve(n):
+        """
+        Sieve of eratosthenes.
+        :param n: Number to which you look for primes.
+        Eg. n=10, returns all primes up to 10.
+        :return: Returns dictionary number:boolean, where boolean presents
+        if number is prime or not.
+        """
         try:
             int(n)
         except ValueError:
             return {}
-        primes = { i:(not(i == 2 or i % 2 == 0 or i == 0 or i == 1)) for i in range(n+1) }
+        primes = {i: (not(i == 2 or i % 2 == 0 or i == 0 or i == 1)) for i in range(n+1)}
         primes[2] = True
-        limit   = sqrt(n) + 1
-        i       = 3
+        limit = sqrt(n) + 1
+        i = 3
         while i <= limit:
             if primes[i]:
                 j = 2 * i
@@ -33,68 +57,92 @@ class primes:
             i += 2
         return primes
 
-    # cache function :: used for cache variables in __init__
-    def primesC(self, n):
+    def primesc(self, n):
+        """
+        This function is used in __init__ to generate firstThousandPrimes
+        :return:
+        """
         try:
             int(n)
         except ValueError:
             return []
-        return [i for i,j in self.ESieve(n).items() if j ]
+        return [i for i, j in self.esieve(n).items() if j]
 
-
-    def firstNPrimes(self, n):
+    def first_n_primes(self, n):
+        """
+        Function is used for generating list of first n primes.
+        :param n: Number, how many prime numbers you want.
+        First N primes means, first starting with lowest natural number
+        that is prime and up until you get N primes.
+        :return: List of prime numbers.
+        """
         try:
             int(n)
         except ValueError:
             return []
         if n < 0:
-            return [];
+            return []
         if n <= 1000:
             return self.firstThousandPrimes[:n]
-        primes  = self.firstThousandPrimes[:1000]
-        i       = primes[999]
+        primes = self.firstThousandPrimes[:1000]
+        i = primes[999]
         counter = 1000
         while True:
             if counter == n:
                 return primes
-            if self.isPrime(i):
+            if self.is_prime(i):
                 primes.append(i)
                 counter += 1
             i += 1
         return primes
 
-
-    # function generates list of primes below n
     def primes(self, n):
+        """
+        Generates list of prime numbers below n.
+        :param n: Number used as upper limit. All primes in a list are smaller than n.
+        Eg. n=13, you get [2, 3, 5, 7, 11]
+        :return: List of primes.
+        """
         try:
             int(n)
         except ValueError:
             return []
         if n < 0:
-            return [];
-        # if n < 7000 definitely in firstThousandPrimes list
-        if n <= 7000:
+            return []
+        if n <= 7000:  # if n < 7000 definitely in firstThousandPrimes list
             return [i for i in self.firstThousandPrimes if i < n]
-        return [i for i,j in self.ESieve(n).items() if j ]
+        return [i for i, j in self.esieve(n).items() if j]
 
-    # generator generating prime numbers
-    def primesGenerator(self, n):
+    def primes_generator(self, n):
+        """
+        Generates prime numbers until prime number reaches n.
+        :param n: Number used as upper limit.
+        :return: Returns generator expression.
+        In case of error, it returns empty list.
+        """
         try:
             int(n)
         except ValueError:
             return []
-        return ( i for i,j in self.ESieve(n).items() if j )
+        return (i for i, j in self.esieve(n).items() if j)
 
-    # used for internal functions
-    def xprimesGenerator(self):
+    def xprimes_generator(self):
+        """
+        Generates prime numbers.
+        :return: Generated prime number.
+        """
         counter = 1
         while True:
-            if self.isPrime(counter):
+            if self.is_prime(counter):
                 yield counter
             counter += 1
 
-
-    def isPrime(self, n):
+    def is_prime(self, n):
+        """
+        Function checks if n is prime number or not.
+        :param n: Number to be checked if prime or not.
+        :return: Returns boolean, True if number is prime otherwise False.
+        """
         try:
             int(n)
         except ValueError:
@@ -111,7 +159,8 @@ class primes:
             return True
 
         # taking care of multipliers (of first 10 integers)
-        if n > 11 and (n%2 == 0 or n%3 == 0 or n%5 == 0 or n%7 == 0 or n%11 == 0):
+        if n > 11 and \
+                (n % 2 == 0 or n % 3 == 0 or n % 5 == 0 or n % 7 == 0 or n % 11 == 0):
             return False
 
         # using cache to check first thousand primes
@@ -125,21 +174,25 @@ class primes:
                 return False
         return True
 
-    # function returns primefactors of number a
-    def primeFactors(self, n):
+    def prime_factors(self, n):
+        """
+        Returns list of prime factors of number n.
+        :param n: Number to be factorized.
+        :return: List containing prime factors of number n.
+        """
         try:
             int(n)
         except ValueError:
             return []
         factors = list()
-        if self.isPrime(n):
+        if self.is_prime(n):
             return [n]
         if (n // 2) > 1000:
             primelist = self.primes((n // 2) + 1)
         else:
             primelist = self.firstThousandPrimes
         for i in primelist:
-            while n%i == 0:
+            while n % i == 0:
                 n = n // i
                 factors.append(i)
             if n == 1:
@@ -147,20 +200,32 @@ class primes:
         return factors
 
 
-class numtools:
+class Numtools:
+    """
+    Contains functions for checking if number is pandigital,
+    finding min and max element in a list, generating fibonacci numbers
+    and counting divisors of given number.
+    """
 
-    # returns number of divisors
-    def numDivisors(self, n):
+    @staticmethod
+    def num_divisors(n):
+        """
+        Returns number of divisors (how many divisors) of number n
+        """
         if n < 1:
             return 0
         if n == 1:
             return 1
-        pfactors = primes.primeFactors(n)
-        divs = Counter(pfactors).items()
-        return reduce(lambda x,y: x*y, [i+1 for _,i in divs])
+        pfactors = primes.prime_factors(n)
+        divs = Counter(pfactors).values()
+        return reduce(lambda x, y: x*y, [i+1 for i in divs])
 
-    # generator generating fibonacci numbers
-    def fibonacciGenerator(self, n):
+    @staticmethod
+    def fibonacci_generator(n):
+        """
+        Generates n fibonacci numbers.
+        :return: Fibonacci number.
+        """
         try:
             int(n)
         except ValueError:
@@ -170,13 +235,17 @@ class numtools:
             yield a
             a, b = b, a + b
 
-    # returns tuple containing min and max value from the list
-    def findMinMax(self, list):
-        tmin = list[0]
-        tmax = list[0]
-        if len(list)%2 != 0:
-            list.append(list[0])
-        for i,j in zip(list[0::2], list[1::2]):
+    @staticmethod
+    def find_minmax(lst):
+        """
+        Returns tuple with min and max element of a list.
+        It finds both min and max element in O(n) (more exact: O(3/2n)
+        """
+        tmin = lst[0]
+        tmax = lst[0]
+        if len(lst) % 2 != 0:
+            lst.append(lst[0])
+        for i, j in zip(lst[0::2], lst[1::2]):
             try:
                 int(i)
                 int(j)
@@ -188,11 +257,15 @@ class numtools:
             else:
                 tmin = min(tmin, j)
                 tmax = max(tmax, i)
-        return (tmin, tmax)
+        return tmin, tmax
 
-    # generator for pandigital numbers
-    # receives list which contains digits
-    def pandigitalsGenerator(self, lst):
+    @staticmethod
+    def pandigitals_generator(lst):
+        """
+        Generates pandigital numbers from alphabet received as parameter lst
+        :param lst: Alphabet used for pandigital numbers.
+        :return: Pandigital number.
+        """
         for i in lst:
             try:
                 int(i)
@@ -201,15 +274,19 @@ class numtools:
         if any(i < 0 for i in lst):
             return -1
         for i in permutations(lst):
-            yield int(''.join(map(str,i)))
+            yield int(''.join(map(str, i)))
 
-    # function checks if given number is pandigital
-    # lst accepts list or set which is used as rule.
-    # Eg. isPandigital(n, {1,2,3}) it will check if n is pandigital number with digits 1, 2 and 3
-    def isPandigital(self, n, lst):
-        for i in lst:
+    @staticmethod
+    def is_pandigital(n, lst):
+        """
+        Function checks if given numebr n is pandigital
+        considering given alphabet lst
+        Eg. isPandigital(n, {1,2,3}) it will check if n is pandigital number with digits 1, 2 and 3
+        :return: Boolean, True if number is pandigital otherwise False
+        """
+        for i in lst:  # check if given alphabet is legit
             try:
-                int(n)
+                int(i)
             except ValueError:
                 return False
         if n < 1:
@@ -226,8 +303,14 @@ class numtools:
                 return False
         return True
 
-class joins:
-    def fullOuterJoin(self, *matrices):
+
+class Joins:
+    """
+    Has function full_outer_join.
+    """
+
+    @staticmethod
+    def full_outer_join(*matrices):
         """
         :param matrices: list of matrices
         :return: full outer join of given matrices
@@ -238,13 +321,23 @@ class joins:
         return ret
 
 
-class sorts:
+class Sorts:
+    """
+    Has two sorting algorithms, Counting Sort and Heap Sort and function is_sorted.
+    Function is_sorted is good for checking if list is in ASC or DESC order.
+    """
 
-    ''' Time complexity O(n+k) '''
-    def countingSort(self, s, k):
+    @staticmethod
+    def counting_sort(s, k):
+        """
+        CountingSort, used to sort integers in O(n+k)
+        :param s: List to be sorted
+        :param k: Number of buckets (algorithm generates k+1 buckets)
+        :return:
+        """
         """ create k+1 buckets """
         nbuckets = k+1
-        counter = [0 for i in range(nbuckets)]
+        counter = [0 for _ in range(nbuckets)]
         for i in s:
             counter[i] += 1
         n = 0
@@ -255,18 +348,29 @@ class sorts:
                 counter[i] -= 1
         return s
 
-
-    def heapSort(self, s):
+    @staticmethod
+    def heap_sort(s):
+        """
+        Heap sort, sorts in O(nlogn)
+        :param s: List to be sorted
+        :return: Sorted list
+        """
         heapify(s)
-        return [heappop(s) for i in range(len(s))]
+        return [heappop(s) for _ in range(len(s))]
 
-    ''' checks if list is sorted in O(n) '''
-    def isSorted(self, s, order="asc"):
+    @staticmethod
+    def is_sorted(s, order="ASC"):
+        """
+        Function checks if given list is sorted in O(n).
+        :param s: List to be checked.
+        :param order: What kind of order are we looking for. ASC or DESC
+        :return:
+        """
         prev = s[0]
         for i in s:
-            if i < prev and order == "asc":
+            if i < prev and order == "ASC":
                 return False
-            elif i > prev and order == "desc":
+            elif i > prev and order == "DESC":
                 return False
             prev = i
         return True
@@ -277,50 +381,54 @@ if __name__ == "__main__":
     print("TESTING")
 
     ''' testing primes '''
-    primes = primes()
+    primes = Primes()
     a = 10
-    fnprimes = primes.firstNPrimes(a)
+    fnprimes = primes.first_n_primes(a)
     print("First ", a, " primes")
     print(fnprimes)
 
+    print("primes(13): ", end="")
+    print(primes.primes(13))
+    print()
+
     ''' testing numtools '''
-    nums = numtools()
+    nums = Numtools()
     a = 10
-    ndiv = nums.numDivisors(a)
+    ndiv = nums.num_divisors(a)
     print(a, " has ", ndiv, " divisors")
 
     ''' testing joins '''
-    Join = joins()
-    m1 = [['+','-']]
-    m2 = [['1','2','3'],['4','5','6']]
-    m3 = [['a','b','c'],['d','e','f'], ['g','h','i']]
-    m1 = [['+'],['-']]
-    m2 = [['1'],['2'],['3']]
-    m3 = [['a'],['b'],['c']]
-    m4 = [['X'],['Z']]
+    Join = Joins()
+    m1 = [['+', '-']]
+    m2 = [['1', '2', '3'], ['4', '5', '6']]
+    m3 = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']]
+    m1 = [['+'], ['-']]
+    m2 = [['1'], ['2'], ['3']]
+    m3 = [['a'], ['b'], ['c']]
+    m4 = [['X'], ['Z']]
 
-    matrices = [m1,m2,m3,m4]
-    res = Join.fullOuterJoin(matrices)
+    matrices = [m1, m2, m3, m4]
+    res = Join.full_outer_join(matrices)
     for i in res:
         print(i)
 
     ''' testing sorts '''
-    unsorted = [randint(1,50) for i in range(50)]
-    sorts = sorts()
-    sort = sorts.heapSort(unsorted[::])
+    unsorted = [randint(1, 50) for i in range(50)]
+    sorts = Sorts()
+    sort = sorts.heap_sort(unsorted[::])
     if sort == sorted(unsorted):
         print("List is sorted using heap sort")
     else:
         print("List is NOT sorted (using heapsort)")
 
-    if not sorts.isSorted(unsorted):
+    if not sorts.is_sorted(unsorted):
         print("Unsorted list is not sorted")
-    if sorts.isSorted(sort):
+    if sorts.is_sorted(sort):
         print("Sorted list is sorted")
-    if sorts.isSorted(sort) and sort == sorted(sort):
+    if sorts.is_sorted(sort) and sort == sorted(sort):
         print("Looks like isSorted works")
 
-    sort = sorts.countingSort(unsorted, len(unsorted))
+    sort = sorts.counting_sort(unsorted, len(unsorted))
     if sort == sorted(unsorted):
         print("List is sorted using counting sort")
     else:

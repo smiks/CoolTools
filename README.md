@@ -1,30 +1,28 @@
-CoolTools v0.7
+CoolTools v0.7.5
 =========
-
-cooltools is a small module I made
 
 It has following features.
 
-Class primes:
-- ESieve
-- firstNPrimes
+Class Primes:
+- esieve
+- first_n_primes
 - primes
-- primesGenerator
-- xprimesGenerator
-- isPrime
-- primeFactors
+- primes_generator
+- xprimes_generator
+- is_prime
+- prime_factors
 
-Class numtools:
-- numDivisors
-- fibonacciGenerator
-- findMinMax
-- pandigitalsGenerator
-- isPandigital
+Class Numtools:
+- num_divisors
+- fibonacci_generator
+- find_min_,ax
+- pandigitals_generator
+- is_pandigital
 
-Class joins:
-- fullOuterJoin
+Class Joins:
+- full_outer_join
 
-Class sorts:
-- counting sort
-- heap sort
-- isSorted
+Class Sorts:
+- counting_sort
+- heap_sort
+- is_sorted
