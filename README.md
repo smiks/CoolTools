@@ -1,4 +1,4 @@
-CoolTools v0.7.5
+CoolTools v0.7.6
 =========
 
 It has following features.
@@ -18,6 +18,7 @@ Class Numtools:
 - find_minmax
 - pandigitals_generator
 - is_pandigital
+- is_signed_perm
 
 Class Joins:
 - full_outer_join

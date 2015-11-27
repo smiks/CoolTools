@@ -5,7 +5,7 @@ some basic operations on lists and pandigital numbers.
 """
 
 __author__ = "smiks"
-__version__ = "0.7.5"
+__version__ = "0.7.6"
 
 from math import sqrt
 from itertools import permutations, product, chain
@@ -303,6 +303,28 @@ class Numtools:
                 return False
         return True
 
+    @staticmethod
+    def is_signed_perm(lst):
+        """
+        Checks if given list (lst) is signed permutation.
+        Eg.
+        [5, 4, 3, 1] => False (missing 2)
+        [1, 1, 2, 3] => False (1 appears twice)
+        [1, 2, -3, 4] => True
+        [1, 2, 3, 4, 5] => True
+        Return: Boolean, True if lst represents signed permutation, otherwise False
+        """
+        dd = defaultdict(int)
+        abslst = list(map(lambda x: abs(x), lst))
+        llst = len(abslst)
+        for i in abslst:
+            dd[i] += 1
+            if dd[i] > 1:
+                return False
+        if llst != max(abslst):
+            return False
+        return True
+
 
 class Joins:
     """
@@ -447,3 +469,14 @@ if __name__ == "__main__":
     print(sorts.is_sorted(rfnprimes, order="DESC"))
     print("Checking if list ", rfnprimes, " is sorted ASC")
     print(sorts.is_sorted(rfnprimes, order="ASC"))
+    print()
+    print("Check for signed permutations [1, 2, 3, 4, 5]")
+    print(nums.is_signed_perm([1, 2, 3, 4, 5]))
+    print("Check for signed permutations [1, 2, 3, 4, 4]")
+    print(nums.is_signed_perm([1, 2, 3, 4, 4]))
+    print("Check for signed permutations [1, 2, 4, 5]")
+    print(nums.is_signed_perm([1, 2, 4, 5]))
+    print("Check for signed permutations [1, -2, -4, 5]")
+    print(nums.is_signed_perm([1, -2, -4, 5]))
+    print("Check for signed permutations [1, -2, -4, 3]")
+    print(nums.is_signed_perm([1, -2, -4, 3]))
