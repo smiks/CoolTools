@@ -3,9 +3,10 @@ Cooltools module has bunch of useful functions.
 Module can be used for work with prime numbers, fibonacci sequence,
 some basic operations on lists and pandigital numbers.
 """
+from token import EQUAL
 
 __author__ = "smiks"
-__version__ = "0.7.8"
+__version__ = "0.8"
 
 from math import sqrt
 from itertools import permutations, product, chain
@@ -97,7 +98,7 @@ class Primes:
             i += 1
         return primes
 
-    def primes(self, n):
+    def prime_numbers(self, n):
         """
         Generates list of prime numbers below n.
         :param n: Number used as upper limit. All primes in a list are smaller than n.
@@ -189,7 +190,7 @@ class Primes:
         if self.is_prime(n):
             return [n]
         if (n // 2) > 1000:
-            primelist = self.primes((n // 2) + 1)
+            primelist = self.prime_numbers((n // 2) + 1)
         else:
             primelist = self.firstThousandPrimes
         for i in primelist:
@@ -217,7 +218,7 @@ class Numtools:
             return 0
         if n == 1:
             return 1
-        pfactors = primes.prime_factors(n)
+        pfactors = Primes().prime_factors(n)
         divs = Counter(pfactors).values()
         return reduce(lambda x, y: x*y, [i+1 for i in divs])
 
@@ -365,13 +366,15 @@ class Sorts:
     """
 
     @staticmethod
-    def counting_sort(s, k):
+    def counting_sort(s, k = None):
         """
         CountingSort, used to sort integers in O(n+k)
         :param s: List to be sorted
         :param k: Number of buckets (algorithm generates k+1 buckets)
         :return:
         """
+        if k is None:
+            k = len(s)
         """ create k+1 buckets """
         nbuckets = k+1
         counter = [0 for _ in range(nbuckets)]
@@ -411,87 +414,3 @@ class Sorts:
                 return False
             prev = i
         return True
-
-
-if __name__ == "__main__":
-    from random import randint
-    print("TESTING")
-
-    ''' testing primes '''
-    primes = Primes()
-    a = 10
-    fnprimes = primes.first_n_primes(a)
-    print("First ", a, " primes")
-    print(fnprimes)
-    print("Testing if 2 and 4 are primes: ", primes.is_prime(2), primes.is_prime(4))
-    print("Testing function primes(13): ", end="")
-    print(primes.primes(13))
-    print("Testing prime factors of 10 and 13: ", primes.prime_factors(10), primes.prime_factors(13))
-    ''' testing numtools '''
-    nums = Numtools()
-    a = 10
-    ndiv = nums.num_divisors(a)
-    print(a, " has ", ndiv, " divisors")
-    print("Generating fibonacci numbers n:10")
-    for i in nums.fibonacci_generator(10):
-        print(i, end=", ")
-    print()
-    print("Finding min and max in list: ", fnprimes)
-    print(nums.find_minmax(fnprimes))
-    print()
-    print("Testing if numbers 234 and 232 are pandigital numbers ", nums.is_pandigital(234, [2,3,4]),
-                                                                    nums.is_pandigital(232, [2,3,4]))
-    print()
-    ''' testing joins '''
-    Join = Joins()
-    m1 = [['+', '-']]
-    m2 = [['1', '2', '3'], ['4', '5', '6']]
-    m3 = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']]
-    m1 = [['+'], ['-']]
-    m2 = [['1'], ['2'], ['3']]
-    m3 = [['a'], ['b'], ['c']]
-    m4 = [['X'], ['Z']]
-
-    matrices = [m1, m2, m3, m4]
-    res = Join.full_outer_join(matrices)
-    for i in res:
-        print(i)
-
-    ''' testing sorts '''
-    unsorted = [randint(1, 50) for i in range(50)]
-    sorts = Sorts()
-    sort = sorts.heap_sort(unsorted[::])
-    if sort == sorted(unsorted):
-        print("List is sorted using heap sort")
-    else:
-        print("List is NOT sorted (using heapsort)")
-
-    if not sorts.is_sorted(unsorted):
-        print("Unsorted list is not sorted")
-    if sorts.is_sorted(sort):
-        print("Sorted list is sorted")
-    if sorts.is_sorted(sort) and sort == sorted(sort):
-        print("Looks like isSorted works")
-
-    sort = sorts.counting_sort(unsorted, len(unsorted))
-    if sort == sorted(unsorted):
-        print("List is sorted using counting sort")
-    else:
-        print("List is NOT sorted (using counting sort)")
-
-    rfnprimes = fnprimes[::-1]
-    print("Checking if list ", rfnprimes, " is sorted DESC")
-    print(sorts.is_sorted(rfnprimes, order="DESC"))
-    print("Checking if list ", rfnprimes, " is sorted ASC")
-    print(sorts.is_sorted(rfnprimes, order="ASC"))
-    print()
-    print("Check for signed permutations [1, 2, 3, 4, 5]")
-    print(nums.is_signed_perm([1, 2, 3, 4, 5]))
-    print("Check for signed permutations [1, 2, 3, 4, 4]")
-    print(nums.is_signed_perm([1, 2, 3, 4, 4]))
-    print("Check for signed permutations [1, 2, 4, 5]")
-    print(nums.is_signed_perm([1, 2, 4, 5]))
-    print("Check for signed permutations [1, -2, -4, 5]")
-    print(nums.is_signed_perm([1, -2, -4, 5]))
-    print("Check for signed permutations [1, -2, -4, 3]")
-    print(nums.is_signed_perm([1, -2, -4, 3]))
