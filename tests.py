@@ -1,4 +1,4 @@
-__author__ = 'Sandi'
+__author__ = 'smiks'
 import unittest
 from cooltools import *
 
