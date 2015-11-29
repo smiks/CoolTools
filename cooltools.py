@@ -5,7 +5,7 @@ some basic operations on lists and pandigital numbers.
 """
 
 __author__ = "smiks"
-__version__ = "0.7.6"
+__version__ = "0.7.8"
 
 from math import sqrt
 from itertools import permutations, product, chain
@@ -13,6 +13,7 @@ from collections import defaultdict
 from functools import reduce
 from collections import Counter
 from heapq import heapify, heappop
+from math import factorial
 
 
 class Primes:
@@ -324,6 +325,20 @@ class Numtools:
         if llst != max(abslst):
             return False
         return True
+
+    @staticmethod
+    def partial_permutation(n, k):
+        """
+        Function calculates partial permutation (where n>k) and returns result.
+        """
+        res = 1
+        for i in range(n, n-k, -1):
+            res *= i
+        return res
+
+    @staticmethod
+    def binomial_coefficient(n, k):
+        return factorial(n) // (factorial(k)*factorial(n-k))
 
 
 class Joins:

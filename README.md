@@ -1,4 +1,4 @@
-CoolTools v0.7.6
+CoolTools v0.7.8
 =========
 
 It has following features.
@@ -19,6 +19,8 @@ Class Numtools:
 - pandigitals_generator
 - is_pandigital
 - is_signed_perm
+- partial_permutation
+- binomial_coefficient
 
 Class Joins:
 - full_outer_join
