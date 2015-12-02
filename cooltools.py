@@ -160,8 +160,8 @@ class Primes:
         if n == 2 or n == 3 or n == 5 or n == 7 or n == 11:
             return True
 
-        # taking care of multipliers (of first 10 integers)
-        if n > 11 and (n % 2 == 0 or n % 3 == 0 or n % 5 == 0 or n % 7 == 0):
+        # taking care of some multipliers
+        if n > 7 and (n % 2 == 0 or n % 3 == 0 or n % 5 == 0 or n % 7 == 0):
             return False
 
         # using cache to check first thousand primes
