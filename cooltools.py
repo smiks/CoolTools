@@ -1,20 +1,18 @@
+from math import factorial, sqrt
+from itertools import chain, permutations, product
+from collections import Counter, defaultdict
+from functools import reduce
+from heapq import heapify, heappop
+
 """
 Cooltools module has bunch of useful functions.
 Module can be used for work with prime numbers, fibonacci sequence,
 some basic operations on lists and pandigital numbers.
+Compatible for python versions Python 3.3 and Python 3.4.
 """
-from token import EQUAL
 
 __author__ = "smiks"
-__version__ = "0.8"
-
-from math import sqrt
-from itertools import permutations, product, chain
-from collections import defaultdict
-from functools import reduce
-from collections import Counter
-from heapq import heapify, heappop
-from math import factorial
+__version__ = "0.8.1"
 
 
 class Primes:
@@ -27,7 +25,8 @@ class Primes:
     def __init__(self):
         """
         Used only for cache. It saves first 1007 primes to object.
-        These primes are later used as cache so it doesn't calculate first 1000 primes
+        These primes are later used as cache
+        so it doesn't calculate first 1000 primes
         all over again.
         :return:
         """
@@ -46,7 +45,7 @@ class Primes:
             int(n)
         except ValueError:
             return {}
-        primes = {i: (not(i == 2 or i % 2 == 0 or i == 0 or i == 1)) for i in range(n+1)}
+        primes = {i: (not(i <= 2 or i % 2 == 0)) for i in range(n+1)}
         primes[2] = True
         limit = sqrt(n) + 1
         i = 3
@@ -101,7 +100,8 @@ class Primes:
     def prime_numbers(self, n):
         """
         Generates list of prime numbers below n.
-        :param n: Number used as upper limit. All primes in a list are smaller than n.
+        :param n: Number used as upper limit.
+        All primes in a list are smaller than n.
         Eg. n=13, you get [2, 3, 5, 7, 11]
         :return: List of primes.
         """
@@ -161,15 +161,14 @@ class Primes:
             return True
 
         # taking care of multipliers (of first 10 integers)
-        if n > 11 and \
-                (n % 2 == 0 or n % 3 == 0 or n % 5 == 0 or n % 7 == 0 or n % 11 == 0):
+        if n > 11 and (n % 2 == 0 or n % 3 == 0 or n % 5 == 0 or n % 7 == 0):
             return False
 
         # using cache to check first thousand primes
         if n in self.firstThousandPrimes:
             return True
 
-        #checking the rest
+        # checking the rest
         start = self.firstThousandPrimes[len(self.firstThousandPrimes)-1]
         for i in range(start, int(sqrt(n)) + 1, 6):
             if n % i == 0 or n % (i + 2) == 0:
@@ -283,7 +282,8 @@ class Numtools:
         """
         Function checks if given numebr n is pandigital
         considering given alphabet lst
-        Eg. isPandigital(n, {1,2,3}) it will check if n is pandigital number with digits 1, 2 and 3
+        Eg. isPandigital(n, {1,2,3})
+        it will check if n is pandigital number with digits 1, 2 and 3
         :return: Boolean, True if number is pandigital otherwise False
         """
         for i in lst:  # check if given alphabet is legit
@@ -314,7 +314,8 @@ class Numtools:
         [1, 1, 2, 3] => False (1 appears twice)
         [1, 2, -3, 4] => True
         [1, 2, 3, 4, 5] => True
-        Return: Boolean, True if lst represents signed permutation, otherwise False
+        Return: Boolean,
+        True if lst represents signed permutation, otherwise False
         """
         dd = defaultdict(int)
         abslst = list(map(lambda x: abs(x), lst))
@@ -361,12 +362,12 @@ class Joins:
 
 class Sorts:
     """
-    Has two sorting algorithms, Counting Sort and Heap Sort and function is_sorted.
+    Counting Sort and Heap Sort and function is_sorted.
     Function is_sorted is good for checking if list is in ASC or DESC order.
     """
 
     @staticmethod
-    def counting_sort(s, k = None):
+    def counting_sort(s, k=None):
         """
         CountingSort, used to sort integers in O(n+k)
         :param s: List to be sorted
