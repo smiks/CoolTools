@@ -1,4 +1,4 @@
-CoolTools v0.8.1
+CoolTools v0.8.2
 =========
 
 It has following features.

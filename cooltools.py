@@ -12,7 +12,7 @@ Compatible for python versions Python 3.3 and Python 3.4.
 """
 
 __author__ = "smiks"
-__version__ = "0.8.1"
+__version__ = "0.8.3"
 
 
 class Primes:
@@ -139,26 +139,41 @@ class Primes:
                 yield counter
             counter += 1
 
-    def is_prime(self, n):
+    def is_prime(self, p):
         """
         Function checks if n is prime number or not.
-        :param n: Number to be checked if prime or not.
+        This function is used as wrapper for Miller-Rabin
+        to maintain backwards compatibility.
+        :param p: Number to be checked if prime or not.
         :return: Returns boolean, True if number is prime otherwise False.
         """
         try:
-            int(n)
+            int(p)
         except ValueError:
             return -1
 
-        # if less than 2 - not a prime
+        return self.Miller_Rabin(p)
+
+    def Miller_Rabin(self, n, k = 30):
+        from random import randrange
+        """
+        Tries if n is prime in k passes of Miller-Rabin primality test.
+        :param n: Number to be checked if prime.
+        :param k: Number of rounds of Miller-Rabin test.
+        :return: Returns True if number is prime, else False
+        """
+        small_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 34, 47,
+                        53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107,
+                        109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167,
+                        173, 179, 181, 191]
         if n < 2:
             return False
 
-        # taking care of first 10 integers
-        if n == 4 or n == 6 or n == 8 or n == 9 or n == 10:
-            return False
-        if n == 2 or n == 3 or n == 5 or n == 7 or n == 11:
-            return True
+        for p in small_primes:
+            if n < p * p:
+                return True
+            if n % p == 0:
+                return False
 
         # taking care of some multipliers
         if n > 7 and (n % 2 == 0 or n % 3 == 0 or n % 5 == 0 or n % 7 == 0):
@@ -168,12 +183,25 @@ class Primes:
         if n in self.firstThousandPrimes:
             return True
 
-        # checking the rest
-        start = self.firstThousandPrimes[len(self.firstThousandPrimes)-1]
-        for i in range(start, int(sqrt(n)) + 1, 6):
-            if n % i == 0 or n % (i + 2) == 0:
+        r, s = 0, n - 1
+        while s % 2 == 0:
+            r += 1
+            s //= 2
+
+        for _ in range(k):
+            a = randrange(2, n - 1)
+            x = pow(a, s, n)
+            if x == 1 or x == n - 1:
+                continue
+
+            for _ in range(r - 1):
+                x = pow(x, 2, n)
+                if x == n - 1:
+                    break
+            else:
                 return False
         return True
+
 
     def prime_factors(self, n):
         """

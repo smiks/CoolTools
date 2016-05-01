@@ -10,6 +10,9 @@ class Tests(unittest.TestCase):
         self.assertTrue(Primes().is_prime(3), "Test if 3 is prime")
         self.assertFalse(Primes().is_prime(14), "Test if 14 is prime")
         self.assertTrue(Primes().is_prime(23), "Test if 23 is prime")
+        self.assertTrue(Primes().is_prime(31), "Test if 31 is prime")
+        self.assertTrue(Primes().is_prime(15485863), "Test if 15485863 is prime")
+        self.assertFalse(Primes().is_prime(1247), "Test if 1247 is prime")
         self.assertEqual(Primes().prime_factors(10), [2, 5], "Test prime factors of number 10")
         self.assertEqual(Primes().prime_factors(13), [13], "Test prime factors of number 10")
 
