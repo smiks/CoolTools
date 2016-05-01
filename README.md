@@ -1,4 +1,4 @@
-CoolTools v0.8.2
+CoolTools v0.8.3
 =========
 
 It has following features.
@@ -10,6 +10,7 @@ Class Primes:
 - primes_generator
 - xprimes_generator
 - is_prime
+- Miller-Rabin primality test
 - prime_factors
 
 Class Numtools:
