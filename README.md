@@ -10,7 +10,7 @@ Class Primes:
 - primes_generator
 - xprimes_generator
 - is_prime
-- Miller-Rabin primality test
+- Miller_Rabin
 - prime_factors
 
 Class Numtools:
