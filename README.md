@@ -1,4 +1,4 @@
-CoolTools v0.8.3
+CoolTools v0.8.4
 =========
 
 It has following features.
@@ -15,6 +15,7 @@ Class Primes:
 
 Class Numtools:
 - num_divisors
+- fast_fib
 - fibonacci_generator
 - find_minmax
 - pandigitals_generator

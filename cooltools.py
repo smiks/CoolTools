@@ -12,7 +12,7 @@ Compatible for python versions Python 3.3 and Python 3.4.
 """
 
 __author__ = "smiks"
-__version__ = "0.8.3"
+__version__ = "0.8.4"
 
 
 class Primes:
@@ -200,6 +200,10 @@ class Primes:
         # using cache to check first thousand primes
         if n in self.firstThousandPrimes:
             return True
+
+        # use Fermat to check composite numbers
+        if pow(2, n-1, n) == 0:
+            return False
 
         r, s = 0, n - 1
         while s % 2 == 0:
