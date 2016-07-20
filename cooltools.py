@@ -202,7 +202,7 @@ class Primes:
             return True
 
         # use Fermat to check composite numbers
-        if pow(2, n-1, n) == 0:
+        if pow(2, n-1, n) != 1:
             return False
 
         r, s = 0, n - 1
