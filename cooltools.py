@@ -268,6 +268,53 @@ class Numtools:
         return reduce(lambda x, y: x*y, [i+1 for i in divs])
 
     @staticmethod
+    def pos(n):
+        """
+        :param n:
+        :return:
+        """
+        if n == 0:
+            return (0, 1)
+        else:
+            a, b = Numtools().pos(n / 2)
+            c = a * (b * 2 - a)
+            d = a * a + b * b
+            if n % 2 == 0:
+                return (c, d)
+            else:
+                return (d, c + d)
+
+    @staticmethod
+    def fast_fib(n):
+        """
+        Returns nth fibonacci numbers.
+        Also returns negative nth fibonacci numbers.
+        :param n:
+        :return:
+        """
+        def pos(n):
+            if n == 0:
+                return (0, 1)
+            else:
+                a, b = pos(n // 2)
+                c = a * (b * 2 - a)
+                d = a * a + b * b
+                if n % 2 == 0:
+                    return (c, d)
+                else:
+                    return (d, c + d)
+
+        def fib(n):
+            if n >= 0:
+                return pos(n)[0]
+
+            if n < 0:
+                sign = -1 if n%2 == 0 else 1
+                return sign*pos(abs(n))[0]
+
+        return fib(n)
+
+    @staticmethod
     def fibonacci_generator(n):
         """
         Generates n fibonacci numbers.

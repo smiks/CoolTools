@@ -20,6 +20,12 @@ class Tests(unittest.TestCase):
 
     def test_nums(self):
         self.assertEqual(Numtools().num_divisors(10), 4, "Testing how many divisors has number 10")
+        self.assertEqual(Numtools().fast_fib(5), 5, "Testing 5th fibonacci number should be 5")
+        self.assertEqual(Numtools().fast_fib(6), 8, "Testing 6th fibonacci number should be 8")
+        self.assertEqual(Numtools().fast_fib(10), 55, "Testing 10th fibonacci number should be 55")
+        self.assertEqual(Numtools().fast_fib(0), 0, "Testing 0th fibonacci number should be 0")
+        self.assertEqual(Numtools().fast_fib(-5), 5, "Testing -5th fibonacci number should be 5")
+        self.assertEqual(Numtools().fast_fib(-6), -8, "Testing -6th fibonacci number should be -8")
         fibs = [i for i in Numtools.fibonacci_generator(10)]
         res = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
         self.assertEqual(fibs, res, "Testing first 10 fibonacci numbers")
