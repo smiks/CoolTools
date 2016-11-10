@@ -1,4 +1,4 @@
-CoolTools v0.8.4
+CoolTools v0.8.6
 =========
 
 It has following features.
@@ -21,8 +21,7 @@ Class Numtools:
 - pandigitals_generator
 - is_pandigital
 - is_signed_perm
-- partial_permutation
-- binomial_coefficient
+- partitions
 
 Class Joins:
 - full_outer_join
@@ -31,3 +30,12 @@ Class Sorts:
 - counting_sort
 - heap_sort
 - is_sorted
+
+Class Math:
+- partial_permutation
+- binomial_coefficient
+- sum_arithmetic_series
+- sum_square_series
+- sum_cubic_series
+- sum_tetrahedral_series
+- manhattan_distance

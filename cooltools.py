@@ -8,11 +8,11 @@ from heapq import heapify, heappop
 Cooltools module has bunch of useful functions.
 Module can be used for work with prime numbers, fibonacci sequence,
 some basic operations on lists and pandigital numbers.
-Compatible for python versions Python 3.3 and Python 3.4.
+Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.8.4"
+__version__ = "0.8.6"
 
 
 class Primes:
@@ -157,17 +157,17 @@ class Primes:
                 return False
             if p == 2:
                 return True
-            if p > 2 and p%2 == 0:
+            if p > 2 and p % 2 == 0:
                 return False
             upper_bound = int(sqrt(p)+1)
             for i in range(3, upper_bound, 2):
-                if p%i == 0:
+                if p % i == 0:
                     return False
             return True
 
-        return self.Miller_Rabin(p)
+        return self.miller_rabin(p)
 
-    def Miller_Rabin(self, n, k = 100):
+    def miller_rabin(self, n, k=100):
         from random import randrange
         """
         Tries if n is prime in k passes of Miller-Rabin primality test.
@@ -216,14 +216,13 @@ class Primes:
             if x == 1 or x == n - 1:
                 continue
 
-            for _ in range(r - 1):
+            for __ in range(r - 1):
                 x = pow(x, 2, n)
                 if x == n - 1:
                     break
             else:
                 return False
         return True
-
 
     def prime_factors(self, n):
         """
@@ -313,7 +312,7 @@ class Numtools:
                 return pos(n)[0]
 
             if n < 0:
-                sign = -1 if n%2 == 0 else 1
+                sign = -1 if n % 2 == 0 else 1
                 return sign*pos(abs(n))[0]
 
         return fib(n)
@@ -426,18 +425,23 @@ class Numtools:
         return True
 
     @staticmethod
-    def partial_permutation(n, k):
+    def partitions(n):
         """
-        Function calculates partial permutation (where n>k) and returns result.
+        Function generates partitions of number n
+        in an increasing order.
+        Eg.:
+        partitions(3) will yield
+        [1, 1, 1]
+        [1, 2]
+        [3]
         """
-        res = 1
-        for i in range(n, n-k, -1):
-            res *= i
-        return res
-
-    @staticmethod
-    def binomial_coefficient(n, k):
-        return factorial(n) // (factorial(k)*factorial(n-k))
+        if n == 0:
+            yield []
+            return
+        for p in Numtools.partitions(n - 1):
+            yield [1] + p
+            if p and (len(p) < 2 or p[1] > p[0]):
+                yield [p[0] + 1] + p[1:]
 
 
 class Joins:
@@ -512,3 +516,139 @@ class Sorts:
                 return False
             prev = i
         return True
+
+
+class Math:
+    """
+        Math class contains some mathematical functions.
+    """
+
+    @staticmethod
+    def partial_permutation(n, k):
+        """
+        Function calculates partial permutation (where n>k) and returns result.
+        """
+        res = 1
+        for i in range(n, n-k, -1):
+            res *= i
+        return res
+
+    @staticmethod
+    def binomial_coefficient(n, k):
+        return factorial(n) // (factorial(k)*factorial(n-k))
+
+    @staticmethod
+    def sum_arithmetic_series(b, a=1):
+        """
+            Function returns sum of arithmetic series from a to b.
+            :param b: upper bound
+            :param a: lower bound, [default = 1]
+            :return: sum of arithmetic series from a to b.
+        """
+
+        if b < 0:
+            raise ValueError("Argument b should be non-negative integer!")
+
+        if b == 0:
+            return 0
+
+        """ from 1 to b """
+        part_b = (b * (b + 1)) // 2
+
+        if a == 1:
+            return part_b
+
+        """ from a to b """
+        part_a = (a * (a + 1)) // 2
+
+        return part_b - part_a + a
+
+    @staticmethod
+    def sum_square_series(b, a=1):
+        """
+            Function returns sum of square series from a to b.
+            :param b: upper bound
+            :param a: lower bound, [default = 1]
+            :return: sum of square series from a to b.
+        """
+
+        if b < 0:
+            raise ValueError("Argument b should be non-negative integer!")
+
+        if b == 0:
+            return 0
+
+        """ from 1 to b """
+        """ (n * (n+1) * (2n+1)) / 6 =
+            (2n^3 + 3n^2 + n) / 6
+        """
+        part_b = (2*b**3 + 3*b**2 + b) / 6
+
+        if a == 1:
+            return int(part_b)
+
+        part_a = (2*a**3 + 3*a**2 + a) / 6
+
+        return int(part_b - part_a + a**2)
+
+    @staticmethod
+    def sum_cubic_series(b, a=1):
+        """
+            Function returns sum of cubic series from a to b.
+            :param b: upper bound
+            :param a: lower bound, [default = 1]
+            :return: sum of cubic series from a to b.
+        """
+        if b < 0:
+            raise ValueError("Argument b should be non-negative integer!")
+
+        if b == 0:
+            return 0
+
+        """ from 1 to b """
+        part_b = (b**2 * (b+1)**2) >> 2
+
+        if a == 1:
+            return int(part_b)
+
+        part_a = (a**2 * (a+1)**2) >> 2
+
+        return int(part_b - part_a + a**3)
+
+    @staticmethod
+    def sum_tetrahedral_series(b, a=1):
+        """
+            Function returns sum of tetrahedral series from a to b.
+            :param b: upper bound
+            :param a: lower bound, [default = 1]
+            :return: sum of cubic series from a to b.
+        """
+        if b < 0:
+            raise ValueError("Argument b should be non-negative integer!")
+
+        if b == 0:
+            return 0
+
+        """ from 1 to b """
+        part_b = (b * (b+1) * (b+2)) / 6
+
+        if a == 1:
+            return int(part_b)
+
+        a -= 1
+        part_a =  (a * (a+1) * (a+2)) / 6
+
+        return int(part_b - part_a)
+
+    @staticmethod
+    def manhattan_distance(x1, y1, x2, y2):
+        """
+        Function returns manhattan distance between point 1 and point 2.
+        :param x1: X-coordinate of point 1
+        :param y1: Y-coordinate of point 1
+        :param x2: X-cooridnate of point 2
+        :param y2: Y-coordinate of point 2
+        :return: Function returns manhattan distance between point 1 and point 2.
+        """
+
+        return abs(x1 - x2) + abs(y1 - y2)
