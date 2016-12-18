@@ -15,6 +15,12 @@ __author__ = "smiks"
 __version__ = "0.8.6"
 
 
+class DimensionError(Exception):
+
+    def __init__(self, message):
+        self.message = message
+
+
 class Primes:
     """
     Class primarily meant for work with prime numbers.
@@ -641,14 +647,36 @@ class Math:
         return int(part_b - part_a)
 
     @staticmethod
-    def manhattan_distance(x1, y1, x2, y2):
+    def manhattan_distance(pointA, pointB):
         """
-        Function returns manhattan distance between point 1 and point 2.
-        :param x1: X-coordinate of point 1
-        :param y1: Y-coordinate of point 1
-        :param x2: X-cooridnate of point 2
-        :param y2: Y-coordinate of point 2
-        :return: Function returns manhattan distance between point 1 and point 2.
+        Function returns manhattan distance between point A and point B.
+        Example:
+            manhattan_distance((1,2,3), (4,5,6))
+
+        :param pointA: tuple with coordinates of pointA
+        :param pointb: tuple with coordinates of pointb
+        :return: Function returns manhattan distance between point A and point B.
+        """
+        if len(pointA) != len(pointB):
+            raise DimensionError("Number of dimensions of point A is not same as number of dimensions of point B.")
+
+        return sum(abs(a - b) for a, b in zip(pointA, pointB))
+
+    @staticmethod
+    def euclidean_distance(pointA, pointB):
+        """
+        Function returns Euclidean distance between point A and point B.
+        Example:
+            euclidean_distance((1,2,3), (4,5,6))
+
+        :param pointA: tuple with coordinates of pointA
+        :param pointb: tuple with coordinates of pointb
+        :return: Function returns Euclidean distance between point A and point B.
         """
 
-        return abs(x1 - x2) + abs(y1 - y2)
+        from math import sqrt
+
+        if len(pointA) != len(pointB):
+            raise DimensionError("Number of dimensions of point A is not same as number of dimensions of point B.")
+
+        return sqrt(sum((a - b)**2 for a, b in zip(pointA, pointB)))

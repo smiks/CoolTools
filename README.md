@@ -39,3 +39,4 @@ Class Math:
 - sum_cubic_series
 - sum_tetrahedral_series
 - manhattan_distance
+- euclidean_distance

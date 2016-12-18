@@ -368,14 +368,34 @@ class Tests(unittest.TestCase):
             "Testing sum_tetrahedral_series(5, a = 3)"
         )
         self.assertEqual(
-            Math.manhattan_distance(1, 1, 2, 4),
+            Math.manhattan_distance((1, 1), (2, 4)),
             4,
-            "Testing manhattan_distance(1, 1, 2, 4)"
+            "Testing manhattan_distance((1, 1), (2, 4))"
         )
         self.assertEqual(
-            Math.manhattan_distance(0, 0, 0, 0),
+            Math.manhattan_distance((0, 0), (0, 0)),
             0,
-            "Testing manhattan_distance(0, 0, 0, 0)"
+            "Testing manhattan_distance((0, 0), (0, 0))"
+        )
+        self.assertEqual(
+            Math.manhattan_distance((1, 2, 3, 4), (5, 6, 7, 8)),
+            16,
+            "Testing manhattan_distance((1, 2, 3, 4), (5, 6, 7, 8))"
+        )
+        self.assertEqual(
+            Math.manhattan_distance((0, 0, 0, 0), (0, 0, 0, 0)),
+            0,
+            "Testing manhattan_distance((0, 0, 0, 0), (0, 0, 0, 0))"
+        )
+        self.assertEqual(
+            Math.euclidean_distance((1, 2, 3, 4), (5, 6, 7, 8)),
+            8,
+            "Testing euclidean_distance((1, 2, 3, 4), (5, 6, 7, 8))"
+        )
+        self.assertEqual(
+            Math.euclidean_distance((0, 0, 0, 0), (0, 0, 0, 0)),
+            0,
+            "Testing euclidean_distance((0, 0, 0, 0), (0, 0, 0, 0))"
         )
 
 if __name__ == "__main__":
