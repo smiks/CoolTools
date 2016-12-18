@@ -1,5 +1,5 @@
-CoolTools v0.8.7
-================
+CoolTools v0.8.
+===============
 
 It has following features.
 
@@ -39,4 +39,4 @@ Class Math:
 - sum_cubic_series
 - sum_tetrahedral_series
 - manhattan_distance
-- euclide []() an_distance
+- euclidean_distance
