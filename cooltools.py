@@ -12,7 +12,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.8.6"
+__version__ = "0.8.7"
 
 
 class DimensionError(Exception):
