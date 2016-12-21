@@ -398,6 +398,52 @@ class Tests(unittest.TestCase):
             "Testing euclidean_distance((0, 0, 0, 0), (0, 0, 0, 0))"
         )
 
+    def test_algs(self):
+        self.assertEqual(
+            Algorithms.jaccard_index({"A"}, {"B"}),
+            0,
+            "Testing jaccard_index({A}, {B})"
+        )
+        self.assertEqual(
+            Algorithms.jaccard_index({"A", "B"}, {"B"}),
+            0.5,
+            "Testing jaccard_index({A, B}, {B})"
+        )
+        self.assertEqual(
+            Algorithms.jaccard_index({"A", "B", "C"}, {"B", "C", "A"}),
+            1,
+            "Testing jaccard_index({A, B, C}, {B, C, A})"
+        )
+        self.assertEqual(
+            Algorithms.jaccard_distance({"A"}, {"A"}),
+            0,
+        )
+        self.assertEqual(
+            Algorithms.jaccard_distance({"A", "B", "C", "D"}, {"A"}),
+            0.75,
+            "Testing jaccard_distance({A, B, C, D}, {A})"
+        )
+        self.assertEqual(
+            Algorithms.levenshtein_distance("ABCD", "BCDE"),
+            2,
+            "Testing levenshtein_distance(ABCD, BCDE)"
+        )
+        self.assertEqual(
+            Algorithms.levenshtein_distance("ABCD", ""),
+            4,
+            "Testing levenshtein_distance(ABCD, )"
+        )
+        self.assertEqual(
+            Algorithms.levenshtein_distance("", "ABCDE"),
+            5,
+            "Testing levenshtein_distance(, ABCDE)"
+        )
+        self.assertEqual(
+            Algorithms.levenshtein_distance("", ""),
+            0,
+            "Testing levenshtein_distance(, )"
+        )
+
 if __name__ == "__main__":
     tests = Tests()
 
@@ -415,3 +461,6 @@ if __name__ == "__main__":
 
     print("Testing Math")
     tests.test_math()
+
+    print("Testing Algorithms")
+    tests.test_algs()

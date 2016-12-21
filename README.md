@@ -1,4 +1,4 @@
-CoolTools v0.8.7
+CoolTools v0.8.8
 ================
 
 It has following features.
@@ -40,3 +40,8 @@ Class Math:
 - sum_tetrahedral_series
 - manhattan_distance
 - euclidean_distance
+
+Class Algorithms:
+- jaccard_index
+- jaccard_distance
+- levenshtein_distance

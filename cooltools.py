@@ -12,7 +12,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.8.7"
+__version__ = "0.8.8"
 
 
 class DimensionError(Exception):
@@ -546,10 +546,10 @@ class Math:
     @staticmethod
     def sum_arithmetic_series(b, a=1):
         """
-            Function returns sum of arithmetic series from a to b.
-            :param b: upper bound
-            :param a: lower bound, [default = 1]
-            :return: sum of arithmetic series from a to b.
+        Function returns sum of arithmetic series from a to b.
+        :param b: upper bound
+        :param a: lower bound, [default = 1]
+        :return: sum of arithmetic series from a to b.
         """
 
         if b < 0:
@@ -572,10 +572,10 @@ class Math:
     @staticmethod
     def sum_square_series(b, a=1):
         """
-            Function returns sum of square series from a to b.
-            :param b: upper bound
-            :param a: lower bound, [default = 1]
-            :return: sum of square series from a to b.
+        Function returns sum of square series from a to b.
+        :param b: upper bound
+        :param a: lower bound, [default = 1]
+        :return: sum of square series from a to b.
         """
 
         if b < 0:
@@ -600,10 +600,10 @@ class Math:
     @staticmethod
     def sum_cubic_series(b, a=1):
         """
-            Function returns sum of cubic series from a to b.
-            :param b: upper bound
-            :param a: lower bound, [default = 1]
-            :return: sum of cubic series from a to b.
+        Function returns sum of cubic series from a to b.
+        :param b: upper bound
+        :param a: lower bound, [default = 1]
+        :return: sum of cubic series from a to b.
         """
         if b < 0:
             raise ValueError("Argument b should be non-negative integer!")
@@ -624,10 +624,10 @@ class Math:
     @staticmethod
     def sum_tetrahedral_series(b, a=1):
         """
-            Function returns sum of tetrahedral series from a to b.
-            :param b: upper bound
-            :param a: lower bound, [default = 1]
-            :return: sum of cubic series from a to b.
+        Function returns sum of tetrahedral series from a to b.
+        :param b: upper bound
+        :param a: lower bound, [default = 1]
+        :return: sum of cubic series from a to b.
         """
         if b < 0:
             raise ValueError("Argument b should be non-negative integer!")
@@ -654,7 +654,7 @@ class Math:
             manhattan_distance((1,2,3), (4,5,6))
 
         :param pointA: tuple with coordinates of pointA
-        :param pointb: tuple with coordinates of pointb
+        :param pointB: tuple with coordinates of pointB
         :return: Function returns manhattan distance between point A and point B.
         """
         if len(pointA) != len(pointB):
@@ -670,7 +670,7 @@ class Math:
             euclidean_distance((1,2,3), (4,5,6))
 
         :param pointA: tuple with coordinates of pointA
-        :param pointb: tuple with coordinates of pointb
+        :param pointB: tuple with coordinates of pointB
         :return: Function returns Euclidean distance between point A and point B.
         """
 
@@ -680,3 +680,63 @@ class Math:
             raise DimensionError("Number of dimensions of point A is not same as number of dimensions of point B.")
 
         return sqrt(sum((a - b)**2 for a, b in zip(pointA, pointB)))
+
+
+class Algorithms:
+    """
+        Various algorithms on strings, sets etc...
+    """
+
+    @staticmethod
+    def jaccard_index(setA, setB):
+        """
+        Function calculates Jaccard index (similarity) between two sets.
+        :param setA: setA
+        :param setB: setB
+        :return: Jaccard index between sets (setA and setB).
+        """
+        union = setA | setB
+        inter = setA & setB
+
+        return len(inter) / len(union)
+
+    @staticmethod
+    def jaccard_distance(setA, setB):
+        """
+        Function calculates Jaccard distance between two sets.
+        Function calls jaccard_index function.
+        :param setA: setA
+        :param setB: setB
+        :return: Jaccard distance between sets (setA and setB).
+        """
+        return 1 - Algorithms.jaccard_index(setA, setB)
+
+    @staticmethod
+    def levenshtein_distance(sA, sB):
+        """
+        Function calculates Levenshtein distance - similarity between two strings.
+        :param sA: String A.
+        :param sB: String B.
+        :return: Returns Levenshtein distance between two strings.
+        """
+
+        """ Let's assume sA will always be longer """
+        if len(sA) < len(sB):
+            return Algorithms.levenshtein_distance(sB, sA)
+
+        if len(sB) == 0:
+            return len(sA)
+
+        prev_row = range(len(sB) + 1)
+        for i, cA in enumerate(sA):
+            curr_row = [i + 1]
+            for j, cB in enumerate(sB):
+                curr_row.append(min(
+                    prev_row[j + 1] + 1,  # insert
+                    curr_row[j] + 1,  # delete
+                    prev_row[j] + (cA != cB)  # substitute
+                ))
+
+            prev_row = curr_row
+
+        return prev_row[-1]
