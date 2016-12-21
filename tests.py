@@ -443,6 +443,31 @@ class Tests(unittest.TestCase):
             0,
             "Testing levenshtein_distance(, )"
         )
+        self.assertEqual(
+            Algorithms.substring_counter("", ""),
+            1,
+            "Testing substring_counter(, )"
+        )
+        self.assertEqual(
+            Algorithms.substring_counter("A", ""),
+            0,
+            "Testing substring_counter(A, )"
+        )
+        self.assertEqual(
+            Algorithms.substring_counter("", "A"),
+            -1,
+            "Testing substring_counter(, A)"
+        )
+        self.assertEqual(
+            Algorithms.substring_counter("AAAA", "AA"),
+            3,
+            "Testing substring_counter(AAAA, AA)"
+        )
+        self.assertEqual(
+            Algorithms.substring_counter("CCCAACACC", "CC"),
+            3,
+            "Testing substring_counter(CCCAACACC, CC)"
+        )
 
 if __name__ == "__main__":
     tests = Tests()

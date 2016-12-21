@@ -1,4 +1,4 @@
-CoolTools v0.8.8
+CoolTools v0.8.9
 ================
 
 It has following features.
@@ -45,3 +45,4 @@ Class Algorithms:
 - jaccard_index
 - jaccard_distance
 - levenshtein_distance
+- substring_counter

@@ -12,7 +12,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.8.8"
+__version__ = "0.8.9"
 
 
 class DimensionError(Exception):
@@ -740,3 +740,38 @@ class Algorithms:
             prev_row = curr_row
 
         return prev_row[-1]
+
+    @staticmethod
+    def substring_counter(string, substring):
+        """
+        Function is version of python count() function.
+        Difference is that this function counts differently.
+            Example:
+                String: CCC
+                Count: CC
+                "CCC".count("CC")  # returns 1
+                substring_counter("CCC", "CC")  # returns 2
+        :param string: Main string.
+        :param substring: What substring will be checked.
+        :return: Counts occurrence of substring in main string.
+            Returns -1 if string is empty but substring is not.
+            Returns 1 if both strings are empty
+            Returns 0 if string is empty but substring is not.
+            In other cases, it returns counted occurrences.
+        """
+
+        if len(substring) == 0 and len(string) == 0:
+            return 1
+
+        if len(substring) == 0:
+            return 0
+
+        if len(string) == 0:
+            return -1
+
+        lenStr = len(string)
+        lenSub = len(substring)
+        return sum(
+            1 if string[i:i+lenSub] == substring else 0
+            for i in range(lenStr-lenSub + 1)
+        )
