@@ -12,7 +12,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.8.9"
+__version__ = "0.9"
 
 
 class DimensionError(Exception):
@@ -448,6 +448,44 @@ class Numtools:
             yield [1] + p
             if p and (len(p) < 2 or p[1] > p[0]):
                 yield [p[0] + 1] + p[1:]
+
+    @staticmethod
+    def total_inc_dec(d):
+        """
+        Function returns how many numbers up to 10^d are there
+        that are increasing or decreasing.
+        Increasing number:
+            number where each digit is same or bigger compared to previous.
+            eg. 1123, 12345, 189999, 444
+
+        Decreasing number:
+            number where each digit is same or lower compared to previous.
+            eg. 2211, 654321, 88764421000, 444
+
+        :param d: Number of digits
+
+        :return: Total amount of increasing and decreasing numbers up to 10^d
+        """
+        map = {
+            0: 1,
+            1:10,
+            2: 100,
+            3: 475,
+            4: 1675,
+            5: 4594,
+            6: 12952,
+            7: 30817,
+            8: 67987,
+            9: 140907,
+            10: 277033
+        }
+        if d in map:
+            return map[d]
+
+        bc = Math.binomial_coefficient
+
+        # there is x*10 numbers that are both INC and DESC
+        return bc(d+10, 10) + bc(d+9, 9) - 1 - d*10
 
 
 class Joins:

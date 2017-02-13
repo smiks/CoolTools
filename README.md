@@ -1,5 +1,5 @@
-CoolTools v0.8.9
-================
+CoolTools v0.9
+==============
 
 It has following features.
 
@@ -22,6 +22,7 @@ Class Numtools:
 - is_pandigital
 - is_signed_perm
 - partitions
+- total_inc_dec
 
 Class Joins:
 - full_outer_join

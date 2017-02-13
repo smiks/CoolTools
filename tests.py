@@ -160,6 +160,24 @@ class Tests(unittest.TestCase):
         for p in Numtools.partitions(partitions_n):
             self.assertTrue(p in partitions_correct, "Test if partitions work")
 
+        self.assertEqual(
+            Numtools.total_inc_dec(11),
+            520565,
+            "Testing 10^100 inc_dec numbers."
+        )
+
+        self.assertEqual(
+            Numtools.total_inc_dec(2),
+            100,
+            "Testing 10^100 inc_dec numbers."
+        )
+
+        self.assertEqual(
+            Numtools.total_inc_dec(100),
+            51161058134251,
+            "Testing 10^100 inc_dec numbers."
+        )
+
     def test_joins(self):
         # m1 = [['+', '-']]
         # m2 = [['1', '2', '3'], ['4', '5', '6']]
