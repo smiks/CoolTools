@@ -1,9 +1,9 @@
-CoolTools v0.9
-==============
+CoolTools v0.9.1
+================
 
 It has following features.
 
-Class Primes:
+__Class Primes__
 - esieve
 - first_n_primes
 - primes
@@ -13,7 +13,7 @@ Class Primes:
 - Miller_Rabin
 - prime_factors
 
-Class Numtools:
+__Class Numtools__
 - num_divisors
 - fast_fib
 - fibonacci_generator
@@ -24,15 +24,15 @@ Class Numtools:
 - partitions
 - total_inc_dec
 
-Class Joins:
+__Class Joins__
 - full_outer_join
 
-Class Sorts:
+__Class Sorts__
 - counting_sort
 - heap_sort
 - is_sorted
 
-Class Math:
+__Class Math__
 - partial_permutation
 - binomial_coefficient
 - sum_arithmetic_series
@@ -41,9 +41,16 @@ Class Math:
 - sum_tetrahedral_series
 - manhattan_distance
 - euclidean_distance
+- fact_sum_divby_fact
 
-Class Algorithms:
+__Class Algorithms__
 - jaccard_index
 - jaccard_distance
 - levenshtein_distance
 - substring_counter
+
+
+
+_Note_
+&nbsp; ```fact_sum_divby_fact``` explanation
+&nbsp; ![image of fact_sum_divby_fact](fact_sum_divby_fact_img.gif)

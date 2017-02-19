@@ -12,7 +12,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9"
+__version__ = "0.9.1"
 
 
 class DimensionError(Exception):
@@ -719,6 +719,21 @@ class Math:
 
         return sqrt(sum((a - b)**2 for a, b in zip(pointA, pointB)))
 
+
+    @staticmethod
+    def fact_sum_divby_fact(n):
+        """
+        Function returns
+                  _n_
+        1 / n!    \    i!
+                  /__
+                   i=1
+        :param n: integer and upper limit
+        :return: Result of 1/n!  *  sum(i! for i in range(1,n+1))
+        """
+        from itertools import accumulate
+        from operator import mul
+        return sum(accumulate((1.0/i for i in range(n, 1, -1)), mul))+1
 
 class Algorithms:
     """

@@ -416,6 +416,18 @@ class Tests(unittest.TestCase):
             "Testing euclidean_distance((0, 0, 0, 0), (0, 0, 0, 0))"
         )
 
+        self.assertEqual(
+            round(Math.fact_sum_divby_fact(5), 5),
+            1.275,
+            "Testing fact_sum_divby_fact(5)"
+        )
+
+        self.assertEqual(
+            round(Math.fact_sum_divby_fact(6), 5),
+            1.2125,
+            "Testing fact_sum_divby_fact(6)"
+        )
+
     def test_algs(self):
         self.assertEqual(
             Algorithms.jaccard_index({"A"}, {"B"}),
