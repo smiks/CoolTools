@@ -1,4 +1,4 @@
-CoolTools v0.9.1
+CoolTools v0.9.2
 ================
 
 It has following features.
@@ -22,6 +22,7 @@ __Class Numtools__
 - is_pandigital
 - is_signed_perm
 - partitions
+- digital_root
 - total_inc_dec
 
 __Class Joins__
@@ -36,6 +37,7 @@ __Class Math__
 - partial_permutation
 - binomial_coefficient
 - sum_arithmetic_series
+- sum_arithmetic_progression
 - sum_square_series
 - sum_cubic_series
 - sum_tetrahedral_series
@@ -46,6 +48,7 @@ __Class Math__
 __Class Algorithms__
 - jaccard_index
 - jaccard_distance
+- lcs
 - levenshtein_distance
 - substring_counter
 

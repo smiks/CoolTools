@@ -161,15 +161,36 @@ class Tests(unittest.TestCase):
             self.assertTrue(p in partitions_correct, "Test if partitions work")
 
         self.assertEqual(
+            Numtools.digital_root(16),
+            7,
+            "Testing digital_root(16)."
+        )
+        self.assertEqual(
+            Numtools.digital_root(0),
+            0,
+            "Testing digital_root(0)."
+        )
+        self.assertEqual(
+            Numtools.digital_root(7),
+            7,
+            "Testing digital_root(7)."
+        )
+        self.assertEqual(
+            Numtools.digital_root(167346),
+            9,
+            "Testing digital_root(167346)."
+        )
+
+        self.assertEqual(
             Numtools.total_inc_dec(11),
             520565,
-            "Testing 10^100 inc_dec numbers."
+            "Testing 10^11 inc_dec numbers."
         )
 
         self.assertEqual(
             Numtools.total_inc_dec(2),
             100,
-            "Testing 10^100 inc_dec numbers."
+            "Testing 10^2 inc_dec numbers."
         )
 
         self.assertEqual(
@@ -304,6 +325,16 @@ class Tests(unittest.TestCase):
             Math.sum_arithmetic_series(0),
             0,
             "Testing sum_arithmetic_series(0)"
+        )
+        self.assertEqual(
+            Math.sum_arithmetic_progression(0, 0, 1),
+            0,
+            "Testing sum_arithmetic_progression(0, 0, 1)"
+        )
+        self.assertEqual(
+            Math.sum_arithmetic_progression(2, 14, 3),
+            40,
+            "Testing sum_arithmetic_progression(2, 14, 3)"
         )
         self.assertEqual(
             Math.sum_square_series(5),
@@ -452,6 +483,21 @@ class Tests(unittest.TestCase):
             Algorithms.jaccard_distance({"A", "B", "C", "D"}, {"A"}),
             0.75,
             "Testing jaccard_distance({A, B, C, D}, {A})"
+        )
+        self.assertEqual(
+            Algorithms.lcs("", ""),
+            "",
+            "Testing lcs(, )"
+        )
+        self.assertEqual(
+            Algorithms.lcs("ABCD", ""),
+            "",
+            "Testing lcs(ABCD, )"
+        )
+        self.assertEqual(
+            Algorithms.lcs("ABCD", "BCDE"),
+            "BCD",
+            "Testing lcs(ABCD, BCDE)"
         )
         self.assertEqual(
             Algorithms.levenshtein_distance("ABCD", "BCDE"),

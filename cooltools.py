@@ -7,12 +7,14 @@ from heapq import heapify, heappop
 """
 Cooltools module has bunch of useful functions.
 Module can be used for work with prime numbers, fibonacci sequence,
-some basic operations on lists and pandigital numbers.
+some basic operations on lists, pandigital numbers, calculating
+jaccard index/distance on sets, algorithms on strings and calculating
+some mathematical sums and series.
 Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.1"
+__version__ = "0.9.2"
 
 
 class DimensionError(Exception):
@@ -450,6 +452,14 @@ class Numtools:
                 yield [p[0] + 1] + p[1:]
 
     @staticmethod
+    def digital_root(n):
+        """
+        Returns digital root of number n.
+        :param n: integer
+        """
+        return 1+((n-1)%9) if n > 0 else 0
+
+    @staticmethod
     def total_inc_dec(d):
         """
         Function returns how many numbers up to 10^d are there
@@ -608,6 +618,19 @@ class Math:
         return part_b - part_a + a
 
     @staticmethod
+    def sum_arithmetic_progression(min_, max_, step):
+        """
+        Function returns arithmetic progression sum.
+        Function works correctly only if all numbers are part
+        of same arithmetic progression.
+        sum = n(a1+an)/ 2
+        :param lst: List containing numbers.
+        :return: Sum of arithmetic progression
+        """
+        lst = sum(1 for i in range(min_, max_+1, step))
+        return (lst*(min_ + max_))>>1
+
+    @staticmethod
     def sum_square_series(b, a=1):
         """
         Function returns sum of square series from a to b.
@@ -744,8 +767,8 @@ class Algorithms:
     def jaccard_index(setA, setB):
         """
         Function calculates Jaccard index (similarity) between two sets.
-        :param setA: setA
-        :param setB: setB
+        :param setA: set
+        :param setB: set
         :return: Jaccard index between sets (setA and setB).
         """
         union = setA | setB
@@ -758,11 +781,50 @@ class Algorithms:
         """
         Function calculates Jaccard distance between two sets.
         Function calls jaccard_index function.
-        :param setA: setA
-        :param setB: setB
+        :param setA: set
+        :param setB: set
         :return: Jaccard distance between sets (setA and setB).
         """
         return 1 - Algorithms.jaccard_index(setA, setB)
+
+    @staticmethod
+    def lcs(s1, s2):
+        """
+        Function returns longest common substring.
+        :param s1: string
+        :param s2: string
+        :return: String which is longest common substring.
+        """
+        from collections import defaultdict
+        def lcss(s, t):
+
+            def match_score(a, b):
+                return 1 if a == b else -2
+
+            m = defaultdict(int)  # initialization (matrix M)
+            prev = dict()
+            for i, si in enumerate(s):
+                for j, tj in enumerate(t):
+                    m[i, j], prev[i, j] = max(
+                        (m[i - 1, j - 1] + match_score(si, tj), (i - 1, j - 1)),  # match
+                        (m[i - 1, j], (i - 1, j)),  # delete - leave same score
+                        (m[i, j - 1], (i, j - 1))  # insert - leave same score
+                    )
+            return m, prev
+
+        def traceback(s, t, table, prev):
+            i, j = len(s) - 1, len(t) - 1
+            res = ""
+            while table[i, j] != 0:
+                if prev[i, j] == (i - 1, j - 1):
+                    res = s[i] + res
+                i, j = prev[i, j]
+            return res
+
+        m, prev = lcss(s1, s2)
+        res = traceback(s1, s2, m, prev)
+
+        return res
 
     @staticmethod
     def levenshtein_distance(sA, sB):
