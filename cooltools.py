@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.2"
+__version__ = "0.9.3"
 
 
 class DimensionError(Exception):
@@ -457,7 +457,7 @@ class Numtools:
         Returns digital root of number n.
         :param n: integer
         """
-        return 1+((n-1)%9) if n > 0 else 0
+        return 1+((n-1) % 9) if n > 0 else 0
 
     @staticmethod
     def total_inc_dec(d):
@@ -476,9 +476,9 @@ class Numtools:
 
         :return: Total amount of increasing and decreasing numbers up to 10^d
         """
-        map = {
+        map_ = {
             0: 1,
-            1:10,
+            1: 10,
             2: 100,
             3: 475,
             4: 1675,
@@ -489,8 +489,8 @@ class Numtools:
             9: 140907,
             10: 277033
         }
-        if d in map:
-            return map[d]
+        if d in map_:
+            return map_[d]
 
         bc = Math.binomial_coefficient
 
@@ -624,11 +624,13 @@ class Math:
         Function works correctly only if all numbers are part
         of same arithmetic progression.
         sum = n(a1+an)/ 2
-        :param lst: List containing numbers.
+        :param min_: Smallest number in progression.
+        :param max_: Biggest number in progression.
+        :param step: Absolute difference between two adjacent number
         :return: Sum of arithmetic progression
         """
-        lst = sum(1 for i in range(min_, max_+1, step))
-        return (lst*(min_ + max_))>>1
+        lst = sum(1 for _ in range(min_, max_+1, step))
+        return (lst*(min_ + max_)) >> 1
 
     @staticmethod
     def sum_square_series(b, a=1):
@@ -646,7 +648,8 @@ class Math:
             return 0
 
         """ from 1 to b """
-        """ (n * (n+1) * (2n+1)) / 6 =
+        """
+            (n * (n+1) * (2n+1)) / 6 =
             (2n^3 + 3n^2 + n) / 6
         """
         part_b = (2*b**3 + 3*b**2 + b) / 6
@@ -703,45 +706,48 @@ class Math:
             return int(part_b)
 
         a -= 1
-        part_a =  (a * (a+1) * (a+2)) / 6
+        part_a = (a * (a+1) * (a+2)) / 6
 
         return int(part_b - part_a)
 
     @staticmethod
-    def manhattan_distance(pointA, pointB):
+    def manhattan_distance(point_a, point_b):
         """
         Function returns manhattan distance between point A and point B.
         Example:
             manhattan_distance((1,2,3), (4,5,6))
 
-        :param pointA: tuple with coordinates of pointA
-        :param pointB: tuple with coordinates of pointB
-        :return: Function returns manhattan distance between point A and point B.
+        :param point_a: tuple with coordinates of pointA
+        :param point_b: tuple with coordinates of pointB
+        :return:
+                Function returns manhattan distance between point A and point B.
         """
-        if len(pointA) != len(pointB):
-            raise DimensionError("Number of dimensions of point A is not same as number of dimensions of point B.")
+        if len(point_a) != len(point_b):
+            raise DimensionError("Number of dimensions of point A is "
+                                 "not same as number of dimensions of point B.")
 
-        return sum(abs(a - b) for a, b in zip(pointA, pointB))
+        return sum(abs(a - b) for a, b in zip(point_a, point_b))
 
     @staticmethod
-    def euclidean_distance(pointA, pointB):
+    def euclidean_distance(pointa_a, point_b):
         """
         Function returns Euclidean distance between point A and point B.
         Example:
             euclidean_distance((1,2,3), (4,5,6))
 
-        :param pointA: tuple with coordinates of pointA
-        :param pointB: tuple with coordinates of pointB
-        :return: Function returns Euclidean distance between point A and point B.
+        :param pointa_a: tuple with coordinates of pointA
+        :param point_b: tuple with coordinates of pointB
+        :return:
+                Function returns Euclidean distance between point A and point B.
         """
 
         from math import sqrt
 
-        if len(pointA) != len(pointB):
-            raise DimensionError("Number of dimensions of point A is not same as number of dimensions of point B.")
+        if len(pointa_a) != len(point_b):
+            raise DimensionError("Number of dimensions of point A is "
+                                 "not same as number of dimensions of point B.")
 
-        return sqrt(sum((a - b)**2 for a, b in zip(pointA, pointB)))
-
+        return sqrt(sum((a - b)**2 for a, b in zip(pointa_a, point_b)))
 
     @staticmethod
     def fact_sum_divby_fact(n):
@@ -758,34 +764,35 @@ class Math:
         from operator import mul
         return sum(accumulate((1.0/i for i in range(n, 1, -1)), mul))+1
 
+
 class Algorithms:
     """
         Various algorithms on strings, sets etc...
     """
 
     @staticmethod
-    def jaccard_index(setA, setB):
+    def jaccard_index(set_a, set_b):
         """
         Function calculates Jaccard index (similarity) between two sets.
-        :param setA: set
-        :param setB: set
+        :param set_a: set
+        :param set_b: set
         :return: Jaccard index between sets (setA and setB).
         """
-        union = setA | setB
-        inter = setA & setB
+        union = set_a | set_b
+        inter = set_a & set_b
 
         return len(inter) / len(union)
 
     @staticmethod
-    def jaccard_distance(setA, setB):
+    def jaccard_distance(set_a, set_b):
         """
         Function calculates Jaccard distance between two sets.
         Function calls jaccard_index function.
-        :param setA: set
-        :param setB: set
+        :param set_a: set
+        :param set_b: set
         :return: Jaccard distance between sets (setA and setB).
         """
-        return 1 - Algorithms.jaccard_index(setA, setB)
+        return 1 - Algorithms.jaccard_index(set_a, set_b)
 
     @staticmethod
     def lcs(s1, s2):
@@ -796,6 +803,7 @@ class Algorithms:
         :return: String which is longest common substring.
         """
         from collections import defaultdict
+
         def lcss(s, t):
 
             def match_score(a, b):
@@ -827,25 +835,25 @@ class Algorithms:
         return res
 
     @staticmethod
-    def levenshtein_distance(sA, sB):
+    def levenshtein_distance(s_a, s_b):
         """
         Function calculates Levenshtein distance - similarity between two strings.
-        :param sA: String A.
-        :param sB: String B.
+        :param s_a: String A.
+        :param s_b: String B.
         :return: Returns Levenshtein distance between two strings.
         """
 
-        """ Let's assume sA will always be longer """
-        if len(sA) < len(sB):
-            return Algorithms.levenshtein_distance(sB, sA)
+        # Let's assume sA will always be longer
+        if len(s_a) < len(s_b):
+            return Algorithms.levenshtein_distance(s_b, s_a)
 
-        if len(sB) == 0:
-            return len(sA)
+        if len(s_b) == 0:
+            return len(s_a)
 
-        prev_row = range(len(sB) + 1)
-        for i, cA in enumerate(sA):
+        prev_row = range(len(s_b) + 1)
+        for i, cA in enumerate(s_a):
             curr_row = [i + 1]
-            for j, cB in enumerate(sB):
+            for j, cB in enumerate(s_b):
                 curr_row.append(min(
                     prev_row[j + 1] + 1,  # insert
                     curr_row[j] + 1,  # delete
@@ -884,9 +892,53 @@ class Algorithms:
         if len(string) == 0:
             return -1
 
-        lenStr = len(string)
-        lenSub = len(substring)
+        len_str = len(string)
+        len_sub = len(substring)
         return sum(
-            1 if string[i:i+lenSub] == substring else 0
-            for i in range(lenStr-lenSub + 1)
+            1 if string[i:i+len_sub] == substring else 0
+            for i in range(len_str-len_sub + 1)
         )
+
+    @staticmethod
+    def kmp(string, pattern):
+        """
+        Knuth-Morris-Pratt algorithm for finding occurrence of substring (pattern)
+        in a larger string.
+        If substring occurs in a larger string, function returns start position
+        (index in a larger string), if it does not occur function returns -1.
+        If either string or pattern is empty, function returns -1.
+
+        :param string: string (Larger string)
+        :param pattern: string (Substring)
+        :return: start position or -1 if substring does not occur in a larger string.
+        """
+
+        # either string or pattern is empty, return -1
+        if len(string) * len(pattern) == 0:
+            return -1
+
+        # build table of shifts
+        pattern = list(pattern)
+        lp = len(pattern)
+        shifts = [1] * (lp + 1)
+        shift = 1
+        for p in range(lp):
+            while shift <= p and pattern[p] != pattern[p - shift]:
+                shift += shifts[p - shift]
+            shifts[p + 1] = shift
+
+        # search
+        start_pos = 0
+        match_len = 0
+        for c in string:
+            while match_len == lp or \
+                                    match_len >= 0 and pattern[match_len] != c:
+                start_pos += shifts[match_len]
+                match_len -= shifts[match_len]
+
+            match_len += 1
+
+            if match_len == lp:
+                return start_pos
+
+        return -1

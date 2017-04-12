@@ -1,4 +1,4 @@
-CoolTools v0.9.2
+CoolTools v0.9.3
 ================
 
 It has following features.
@@ -51,6 +51,7 @@ __Class Algorithms__
 - lcs
 - levenshtein_distance
 - substring_counter
+- kmp
 
 
 

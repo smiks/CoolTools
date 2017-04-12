@@ -544,6 +544,31 @@ class Tests(unittest.TestCase):
             3,
             "Testing substring_counter(CCCAACACC, CC)"
         )
+        self.assertEqual(
+            Algorithms.kmp("CCCAACACC", "CC"),
+            0,
+            "Testing kmp(CCCAACACC, CC)"
+        )
+        self.assertEqual(
+            Algorithms.kmp("CCCAACACC", "DD"),
+            -1,
+            "Testing kmp(CCCAACACC, DD)"
+        )
+        self.assertEqual(
+            Algorithms.kmp("CCCAACACC", ""),
+            -1,
+            "Testing kmp(CCCAACACC, )"
+        )
+        self.assertEqual(
+            Algorithms.kmp("", "DD"),
+            -1,
+            "Testing kmp(, DD)"
+        )
+        self.assertEqual(
+            Algorithms.kmp("CCCAACACC", "AA"),
+            3,
+            "Testing kmp(CCCAACACC, AA)"
+        )
 
 if __name__ == "__main__":
     tests = Tests()
