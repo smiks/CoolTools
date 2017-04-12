@@ -1,4 +1,4 @@
-CoolTools v0.9.3
+CoolTools v0.9.4
 ================
 
 It has following features.
@@ -53,6 +53,7 @@ __Class Algorithms__
 - substring_counter
 - kmp
 - find_word
+- find_rot_index
 
 
 

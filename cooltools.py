@@ -995,3 +995,59 @@ class Algorithms:
                         taken = dd(bool)
 
         return False
+
+    @staticmethod
+    def find_rot_index(l):
+        """
+        Function returns index of first element that is rotated and
+        order (1: ASC, -1: DESC).
+        If list is not rotated function will return -1 for index.
+        :param l: list with numbers
+        :return: Index of first element that is rotated and order
+        """
+
+        # lists with length less than 3 can't be rotated
+        if len(l) < 3:
+            return -1
+
+        # detect ASC or DESC (1: ASC, -1: DESC)
+        order = 1
+        if l[0] < l[-1]:
+            order = -1
+
+        # check if rotated at all (if not, return 0)
+        if (l[0] < l[1] < l[-1]) or (l[0] > l[1] > l[-1]):
+            order = 1 if l[0] < l[1] else -1
+            return -1, order
+
+        # find rotation index (if rotated return index of position)
+        def rot(left, right):
+            mid = (left + right) // 2
+
+            # check if found
+            if left == mid and l[mid] > l[right] and order == 1:  # odd length fix
+                return mid
+
+            if left == mid and l[mid] < l[right] and order == -1:  # odd length fix
+                return mid
+
+            if order == 1 and abs(mid - left) == 1:
+                return mid if l[left] > l[mid] else right
+
+            if order == -1 and abs(mid - left) == 1:
+                return mid if l[mid] > l[left] else right
+
+            # next round
+            if order == 1 and l[mid] > l[right]:
+                return rot(mid, right)
+
+            if order == 1 and l[mid] < l[right]:
+                return rot(left, mid)
+
+            if order == -1 and l[mid] < l[right]:
+                return rot(mid, right)
+
+            if order == -1 and l[mid] > l[right]:
+                return rot(left, mid)
+
+        return rot(0, len(l) - 1), order

@@ -590,6 +590,41 @@ class Tests(unittest.TestCase):
             False,
             "Testing find_word(board_a, ROBES)"
         )
+        self.assertEqual(
+            Algorithms.find_rot_index([1, 2, 3, 4, 5, 6, 7, 8, 9]),
+            (-1, 1),
+            "Testing unrotated find_rot_index([1, 2, 3, 4, 5, 6, 7, 8, 9])"
+        )
+        self.assertEqual(
+            Algorithms.find_rot_index([4, 5, 6, 7, 8, 9, 1, 2, 3]),
+            (6, 1),
+            "Testing find_rot_index([4, 5, 6, 7, 8, 9, 1, 2, 3])"
+        )
+        self.assertEqual(
+            Algorithms.find_rot_index([9, 1, 2, 3, 4, 5, 6, 7, 8]),
+            (1, 1),
+            "Testing find_rot_index([9, 1, 2, 3, 4, 5, 6, 7, 8])"
+        )
+        self.assertEqual(
+            Algorithms.find_rot_index([2, 3, 4, 5, 6, 7, 8, 9, 1]),
+            (8, 1),
+            "Testing find_rot_index([2, 3, 4, 5, 6, 7, 8, 9, 1])"
+        )
+        self.assertEqual(
+            Algorithms.find_rot_index([4, 3, 2, 1]),
+            (-1, -1),
+            "Testing find_rot_index([4, 3, 2, 1])"
+        )
+        self.assertEqual(
+            Algorithms.find_rot_index([1, 5, 4, 3, 2]),
+            (1, -1),
+            "Testing find_rot_index([1, 5, 4, 3, 2])"
+        )
+        self.assertEqual(
+            Algorithms.find_rot_index([3, 2, 1, 5, 4]),
+            (3, -1),
+            "Testing find_rot_index([3, 2, 1, 5, 4])"
+        )
 
 if __name__ == "__main__":
     tests = Tests()
