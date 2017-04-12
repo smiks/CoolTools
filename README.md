@@ -52,6 +52,7 @@ __Class Algorithms__
 - levenshtein_distance
 - substring_counter
 - kmp
+- find_word
 
 
 

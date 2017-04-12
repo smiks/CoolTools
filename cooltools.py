@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.3"
+__version__ = "0.9.4"
 
 
 class DimensionError(Exception):
@@ -837,7 +837,8 @@ class Algorithms:
     @staticmethod
     def levenshtein_distance(s_a, s_b):
         """
-        Function calculates Levenshtein distance - similarity between two strings.
+        Function calculates Levenshtein distance -
+                                                similarity between two strings.
         :param s_a: String A.
         :param s_b: String B.
         :return: Returns Levenshtein distance between two strings.
@@ -902,15 +903,16 @@ class Algorithms:
     @staticmethod
     def kmp(string, pattern):
         """
-        Knuth-Morris-Pratt algorithm for finding occurrence of substring (pattern)
-        in a larger string.
+        Knuth-Morris-Pratt algorithm
+        Finding occurrence of substring (pattern) in a larger string.
         If substring occurs in a larger string, function returns start position
         (index in a larger string), if it does not occur function returns -1.
         If either string or pattern is empty, function returns -1.
 
         :param string: string (Larger string)
         :param pattern: string (Substring)
-        :return: start position or -1 if substring does not occur in a larger string.
+        :return:
+            start position or -1 if substring does not occur in a larger string.
         """
 
         # either string or pattern is empty, return -1
@@ -942,3 +944,54 @@ class Algorithms:
                 return start_pos
 
         return -1
+
+    @staticmethod
+    def find_word(board, word):
+        """
+        Function returns True if word occures in a board or Fales if it
+        does not. Function works in a same way as game Boggle/Scramble.
+        :param board: list of lists (2D matrix with letters)
+        :param word: string (Word to be checked)
+        :return: If word exists in a board returns True otherwise False.
+        """
+        from collections import defaultdict as dd
+
+        x = [-1, -1, -1, 0, 0, 1, 1, 1]
+        y = [-1, 0, 1, -1, 1, -1, 0, 1]
+        taken = dd(bool)
+
+        def search(grid, pos_x, pos_y, curr_index, word, taken):
+            if curr_index == len(word):
+                return True
+
+            to_look = word[curr_index]
+
+            """ check neighbours """
+            for d in range(8):
+                rd = pos_x + x[d]
+                cd = pos_y + y[d]
+
+                if rd < 0 or rd >= len(grid) or cd < 0 or cd >= len(grid[0]):
+                    continue
+
+                if not taken[(rd, cd)] and grid[rd][cd] == to_look:
+                    old_taken = taken
+                    taken[(rd, cd)] = True
+                    if search(grid, rd, cd, curr_index+1, word, taken):
+                        return True
+                    taken = old_taken
+
+        """ find first occurrence """
+        for row in range(len(board)):
+            for col in range(len(board[0])):
+                if board[row][col] == word[0]:
+                    taken[(row, col)] = True
+                    if len(word) == 1:
+                        return True
+
+                    if search(board, row, col, 1, word, taken):
+                        return True
+                    else:
+                        taken = dd(bool)
+
+        return False

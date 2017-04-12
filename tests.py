@@ -569,6 +569,27 @@ class Tests(unittest.TestCase):
             3,
             "Testing kmp(CCCAACACC, AA)"
         )
+        board_a = [
+          ["E", "A", "R", "A"],
+          ["N", "L", "E", "C"],
+          ["I", "A", "I", "S"],
+          ["B", "Y", "O", "R"]
+        ]
+        self.assertEqual(
+            Algorithms.find_word(board_a, "C"),
+            True,
+            "Testing find_word(board_a, C)"
+        )
+        self.assertEqual(
+            Algorithms.find_word(board_a, "EAR"),
+            True,
+            "Testing find_word(board_a, EAR)"
+        )
+        self.assertEqual(
+            Algorithms.find_word(board_a, "ROBES"),
+            False,
+            "Testing find_word(board_a, ROBES)"
+        )
 
 if __name__ == "__main__":
     tests = Tests()
