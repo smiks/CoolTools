@@ -1,4 +1,4 @@
-CoolTools v0.9.4
+CoolTools v0.9.5
 ================
 
 It has following features.
@@ -54,6 +54,9 @@ __Class Algorithms__
 - kmp
 - find_word
 - find_rot_index
+- two_sum
+- max_subarray_sum
+- lis
 
 
 

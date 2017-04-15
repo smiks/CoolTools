@@ -625,6 +625,47 @@ class Tests(unittest.TestCase):
             (3, -1),
             "Testing find_rot_index([3, 2, 1, 5, 4])"
         )
+        self.assertEqual(
+            sorted(Algorithms.two_sum([3, 2, 1, 5, 4], 3)),
+            [[1, 2]],
+            "Testing two_sum([3, 2, 1, 5, 4], 3)"
+        )
+
+        self.assertEqual(
+            sorted(Algorithms.two_sum([3, 2, 1, 5, 4], 5)),
+            [[1, 4], [2, 3]],
+            "Testing two_sum([3, 2, 1, 5, 4], 3)"
+        )
+        self.assertEqual(
+            Algorithms.two_sum([1, 1, 1, 1], 3),
+            None,
+            "Testing two_sum([1, 1, 1, 1], 3)"
+        )
+        self.assertEqual(
+            Algorithms.max_subarray_sum([1, 1, 1, 1]),
+            4,
+            "Testing max_subarray_sum([1, 1, 1, 1])"
+        )
+        self.assertEqual(
+            Algorithms.max_subarray_sum([1, -4, 7, 4]),
+            11,
+            "Testing max_subarray_sum([1, -4, 7, 4])"
+        )
+        self.assertEqual(
+            Algorithms.lis([1, -4, 7, 4, 8]),
+            [1, 7, 8],
+            "Testing lis([1, -4, 7, 4, 8])"
+        )
+        self.assertEqual(
+            Algorithms.lis([5, 4, 3, 2, 1]),
+            [5],
+            "Testing lis([5, 4, 3, 2, 1])"
+        )
+        self.assertEqual(
+            Algorithms.lis([1, 2, 3, 4, 5]),
+            [1, 2, 3, 4, 5],
+            "Testing lis([1, 2, 3, 4, 5])"
+        )
 
 if __name__ == "__main__":
     tests = Tests()

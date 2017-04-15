@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.4"
+__version__ = "0.9.5"
 
 
 class DimensionError(Exception):
@@ -1051,3 +1051,60 @@ class Algorithms:
                 return rot(left, mid)
 
         return rot(0, len(l) - 1), order
+
+    @staticmethod
+    def two_sum(lst, n):
+        """
+        Function returns pair of numbers which sum is n.
+        Time complexity: O(n)
+        Space complexity: O(n)
+        :param lst: list of numbers
+        :param n: number (sum of two)
+        :return: tuple (pair of numbers which sum is n)
+        If there is no such pair, function returns None
+        """
+        seen = set()
+        needed = set()
+        results = []
+        for i in lst:
+            seen.add(i)
+            needed.add(n-i)
+            if i in needed and n-i in seen:
+                results.append(sorted([i, n-i]))
+
+        return results if len(results) > 0 else None
+
+    @staticmethod
+    def max_subarray_sum(lst):
+        """
+        Function receives list of numbers
+        and returns maximum contiguous subarray sum
+        :param lst: list of numbers
+        :return: aximum contiguous subarray sum
+        """
+        max_ = lst[0]
+        curr = lst[0]
+        for i in lst[1:]:
+            curr = max(i, curr+i)
+            max_ = max(max_, curr)
+
+        return max_
+
+    @staticmethod
+    def lis(lst):
+        """
+        Longest Increasing Subsequence
+        Function returns list which represents longest
+        increasing subsequence of list lst.
+        :param lst: list with numbers
+        :return: list (longest increasing subsequnce)
+        """
+        l = []
+        for i in range(len(lst)):
+            l.append(
+                max( [l[j] for j in range(i) if l[j][-1] < lst[i]] or [[]],
+                     key=len )
+                 + [lst[i]]
+            )
+
+        return max(l, key=len)
