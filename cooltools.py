@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.5"
+__version__ = "0.9.6"
 
 
 class DimensionError(Exception):
@@ -1108,3 +1108,23 @@ class Algorithms:
             )
 
         return max(l, key=len)
+
+    @staticmethod
+    def kth_smallest(l, k):
+        """
+        Returns k-smallest element. Ignores duplicates.
+        Starts counting with 1 (not zero).
+        Time complexity O(n)
+        :param l: list with numbers
+        :param k: integer k-th smallest
+        :return: return k-th smallest element in the list
+        """
+        _l = list({i for i in l})
+        heapify(_l)
+        if k < 1 or len(l) == 0 or k > len(_l):
+            return None
+        ret = 0
+        for _ in range(k):
+            ret = heappop(_l)
+
+        return ret

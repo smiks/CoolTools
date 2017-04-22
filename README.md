@@ -1,4 +1,4 @@
-CoolTools v0.9.5
+CoolTools v0.9.6
 ================
 
 It has following features.
@@ -57,6 +57,7 @@ __Class Algorithms__
 - two_sum
 - max_subarray_sum
 - lis
+- kth_smallest
 
 
 

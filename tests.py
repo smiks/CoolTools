@@ -666,6 +666,31 @@ class Tests(unittest.TestCase):
             [1, 2, 3, 4, 5],
             "Testing lis([1, 2, 3, 4, 5])"
         )
+        self.assertEqual(
+            Algorithms.kth_smallest([1, 2, 3, 4, 5], 1),
+            1,
+            "Testing kth_smallest([1, 2, 3, 4, 5], 1)"
+        )
+        self.assertEqual(
+            Algorithms.kth_smallest([5, 4, 3, 2, 1], 1),
+            1,
+            "Testing kth_smallest([5, 4, 3, 2, 1], 1)"
+        )
+        self.assertEqual(
+            Algorithms.kth_smallest([], 3),
+            None,
+            "Testing kth_smallest([], 3)"
+        )
+        self.assertEqual(
+            Algorithms.kth_smallest([5, 7, 8, 2, 1, 4], 3),
+            4,
+            "Testing kth_smallest([5, 7, 8, 2, 1, 4], 3)"
+        )
+        self.assertEqual(
+            Algorithms.kth_smallest([5, 7, 8, 2, 2, 2, 2, 1, 4], 3),
+            4,
+            "Testing kth_smallest([5, 7, 8, 2, 2, 2, 2, 1, 4], 3)"
+        )
 
 if __name__ == "__main__":
     tests = Tests()
