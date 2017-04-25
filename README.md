@@ -1,4 +1,4 @@
-CoolTools v0.9.7
+CoolTools v0.9.8
 ================
 
 It has following features.
@@ -45,6 +45,8 @@ __Class Math__
 - manhattan_distance
 - euclidean_distance
 - fact_sum_divby_fact
+- euler_totient
+- proper_fractions
 
 __Class Algorithms__
 - jaccard_index

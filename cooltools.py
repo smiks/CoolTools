@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.7"
+__version__ = "0.9.8"
 
 
 class DimensionError(Exception):
@@ -777,6 +777,40 @@ class Math:
         from itertools import accumulate
         from operator import mul
         return sum(accumulate((1.0/i for i in range(n, 1, -1)), mul))+1
+
+    @staticmethod
+    def euler_totient(n):
+        """
+        Euler's totient function
+        :param n: integer n
+        :return: Returns result of Euler's totient function
+        """
+        res = 1.0 * n
+        p = 2
+        while p * p <= n:
+            if n % p == 0:
+                while n % p == 0:
+                    n = n / p
+                res *= (1.0 - (1.0 / p))
+            p += 1
+
+        if n > 1:
+            res *= (1.0 - (1.0 / n))
+
+        return int(res)
+
+    @staticmethod
+    def proper_fractions(d):
+        """
+        Returns how many proper fractions are between
+        0/d and d/d.
+        Proper fraction: gcd(numerator, denominator) == 1
+        :param d: integer, denominator
+        :return: Number of proper fractions.
+        """
+        if d == 1:
+            return 0
+        return Math.euler_totient(d)
 
 
 class Algorithms:

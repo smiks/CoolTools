@@ -198,6 +198,16 @@ class Tests(unittest.TestCase):
             51161058134251,
             "Testing 10^100 inc_dec numbers."
         )
+        self.assertEqual(
+            Numtools.compare_floats(6.000000000000001, 6),
+            True,
+            "Testing compare_floats(6.000000000000001, 6)."
+        )
+        self.assertEqual(
+            Numtools.compare_floats(3.141592, 3.13),
+            False,
+            "Testing compare_floats(3.141592, 3.13)."
+        )
 
     def test_joins(self):
         # m1 = [['+', '-']]
@@ -457,6 +467,31 @@ class Tests(unittest.TestCase):
             round(Math.fact_sum_divby_fact(6), 5),
             1.2125,
             "Testing fact_sum_divby_fact(6)"
+        )
+        self.assertEqual(
+            Math.euler_totient(1),
+            1,
+            "Testing Math.euler_totient(1)"
+        )
+        self.assertEqual(
+            Math.euler_totient(6),
+            2,
+            "Testing Math.euler_totient(6)"
+        )
+        self.assertEqual(
+            Math.euler_totient(9),
+            6,
+            "Testing Math.euler_totient(9)"
+        )
+        self.assertEqual(
+            Math.proper_fractions(9),
+            6,
+            "Testing Math.proper_fractions(9)"
+        )
+        self.assertEqual(
+            Math.proper_fractions(25),
+            20,
+            "Testing Math.proper_fractions(25)"
         )
 
     def test_algs(self):
