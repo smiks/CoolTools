@@ -1,4 +1,4 @@
-CoolTools v0.9.6
+CoolTools v0.9.7
 ================
 
 It has following features.
@@ -24,6 +24,7 @@ __Class Numtools__
 - partitions
 - digital_root
 - total_inc_dec
+- compare_floats
 
 __Class Joins__
 - full_outer_join

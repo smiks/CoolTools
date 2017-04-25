@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.6"
+__version__ = "0.9.7"
 
 
 class DimensionError(Exception):
@@ -497,6 +497,20 @@ class Numtools:
         # there is x*10 numbers that are both INC and DESC
         return bc(d+10, 10) + bc(d+9, 9) - 1 - d*10
 
+
+    @staticmethod
+    def compare_floats(a, b, eps=1e-6):
+        """
+        Returns True if numbers a and b are close enough to be considered as same
+        otherwise returns False
+        :param a: float
+        :param b: float
+        :param eps: float
+        :return:
+        """
+        if abs(a - b) < eps:
+            return True
+        return False
 
 class Joins:
     """
