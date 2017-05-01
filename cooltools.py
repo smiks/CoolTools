@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.8"
+__version__ = "0.9.9"
 
 
 class DimensionError(Exception):
@@ -512,6 +512,19 @@ class Numtools:
             return True
         return False
 
+    @staticmethod
+    def frange(a, b, s=0.5):
+        """
+        Similar to range generator. It works with floats.
+        :param a: Starting point
+        :param b: End point
+        :param s: step (can be float)
+        :return:
+        """
+        while a < b:
+            yield  a
+            a += s
+
 class Joins:
     """
     Has function full_outer_join.
@@ -800,7 +813,7 @@ class Math:
         return int(res)
 
     @staticmethod
-    def proper_fractions(d):
+    def reduced_fractions(d):
         """
         Returns how many proper fractions are between
         0/d and d/d.
@@ -811,6 +824,20 @@ class Math:
         if d == 1:
             return 0
         return Math.euler_totient(d)
+
+    @staticmethod
+    def left_riemann_sum(f, n, a, b):
+        """
+        Returns left Riemann sum of function 'f'
+        with 'n' rectangles from 'a' to 'b'
+        :param f: function with single argument  f(x)
+        :param n: number of rectangles
+        :param a: lower bound
+        :param b: upper bound
+        :return:
+        """
+        dx = (b-a)/n
+        return sum(dx*f(xi) for xi in Numtools.frange(a, b, dx))
 
 
 class Algorithms:

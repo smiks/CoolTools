@@ -484,14 +484,34 @@ class Tests(unittest.TestCase):
             "Testing Math.euler_totient(9)"
         )
         self.assertEqual(
-            Math.proper_fractions(9),
+            Math.reduced_fractions(9),
             6,
             "Testing Math.proper_fractions(9)"
         )
         self.assertEqual(
-            Math.proper_fractions(25),
+            Math.reduced_fractions(25),
             20,
             "Testing Math.proper_fractions(25)"
+        )
+        self.assertEqual(
+            Math.left_riemann_sum(lambda x: 1, 10, 5, 10),
+            5,
+            "Testing Math.left_riemann(lambda x: 1, 10, 5, 10)"
+        )
+        self.assertEqual(
+            Math.left_riemann_sum(lambda x: 0, 10, 5, 10),
+            0,
+            "Testing Math.left_riemann(lambda x: 0, 10, 5, 10)"
+        )
+        self.assertEqual(
+            round(Math.left_riemann_sum(lambda x: x, 100, 0, 1), 1),
+            0.5,
+            "Testing Math.left_riemann(lambda x: x, 100, 0, 1)"
+        )
+        self.assertEqual(
+            round(Math.left_riemann_sum(lambda x: x, 100, -1, 1), 1),
+            0,
+            "Testing Math.left_riemann(lambda x: x, 100, 0, 1)"
         )
 
     def test_algs(self):

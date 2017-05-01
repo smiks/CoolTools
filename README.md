@@ -1,4 +1,4 @@
-CoolTools v0.9.8
+CoolTools v0.9.9
 ================
 
 It has following features.
@@ -25,6 +25,7 @@ __Class Numtools__
 - digital_root
 - total_inc_dec
 - compare_floats
+- frange
 
 __Class Joins__
 - full_outer_join
@@ -46,7 +47,8 @@ __Class Math__
 - euclidean_distance
 - fact_sum_divby_fact
 - euler_totient
-- proper_fractions
+- reduced_fractions
+- left_riemann_sum
 
 __Class Algorithms__
 - jaccard_index
@@ -64,6 +66,6 @@ __Class Algorithms__
 
 
 
-_Note_
+_Note_ <br>
 &nbsp; ```fact_sum_divby_fact``` explanation
 &nbsp; ![image of fact_sum_divby_fact](fact_sum_divby_fact_img.gif)
