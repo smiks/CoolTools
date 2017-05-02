@@ -1,4 +1,4 @@
-CoolTools v1.0
+CoolTools v1.1
 ==============
 
 It has following features.
@@ -49,6 +49,8 @@ __Class Math__
 - euler_totient
 - reduced_fractions
 - left_riemann_sum
+- right_riemann_sum
+- lra_riemann_sum
 
 __Class Algorithms__
 - jaccard_index

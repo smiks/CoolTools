@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "1.0"
+__version__ = "1.1"
 
 
 class DimensionError(Exception):
@@ -838,6 +838,34 @@ class Math:
         """
         dx = (b-a)/n
         return sum(dx*f(xi) for xi in Numtools.frange(a, b, dx))
+
+    @staticmethod
+    def right_riemann_sum(f, n, a, b):
+        """
+        Returns right Riemann sum of function 'f'
+        with 'n' rectangles from 'a' to 'b'
+        :param f: function with single argument  f(x)
+        :param n: number of rectangles
+        :param a: lower bound
+        :param b: upper bound
+        :return:
+        """
+        dx = (b-a)/n
+        return sum(dx*f(xi+dx) for xi in Numtools.frange(a, b, dx))
+
+    @staticmethod
+    def lra_riemann_sum(f, n, a, b):
+        """
+        Returns average of left and right Riemann sum of function 'f'
+        with 'n' rectangles from 'a' to 'b'
+        :param f: function with single argument  f(x)
+        :param n: number of rectangles
+        :param a: lower bound
+        :param b: upper bound
+        :return:
+        """
+        dx = (b-a)/n
+        return sum((dx*f(xi)+dx*f(xi+dx))/2 for xi in Numtools.frange(a, b, dx))
 
 
 class Algorithms:
