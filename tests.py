@@ -746,6 +746,26 @@ class Tests(unittest.TestCase):
             4,
             "Testing kth_smallest([5, 7, 8, 2, 2, 2, 2, 1, 4], 3)"
         )
+        self.assertEqual(
+            Algorithms.smallest_positive_missing([-1, 5, 7, 8, 15, 0]),
+            1,
+            "Testing smallest_positive_missing([-1, 5, 7, 8, 15, 0])"
+        )
+        self.assertEqual(
+            Algorithms.smallest_positive_missing([-1, 1, 2, 3, 4, 0]),
+            5,
+            "Testing smallest_positive_missing([-1, 1, 2, 3, 4, 0])"
+        )
+        self.assertEqual(
+            Algorithms.smallest_positive_missing([0, -1, -2, -3, -4, -15]),
+            1,
+            "Testing smallest_positive_missing([0, -1, -2, -3, -4, -15])"
+        )
+        self.assertEqual(
+            Algorithms.smallest_positive_missing([]),
+            1,
+            "Testing smallest_positive_missing([])"
+        )
 
 if __name__ == "__main__":
     tests = Tests()

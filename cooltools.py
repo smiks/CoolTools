@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "0.9.9"
+__version__ = "1.0"
 
 
 class DimensionError(Exception):
@@ -1203,3 +1203,28 @@ class Algorithms:
             ret = heappop(_l)
 
         return ret
+
+    @staticmethod
+    def smallest_positive_missing(l):
+        """
+        Returns smallest positive number missing in a list 'l'.
+        Only works with integers.
+        Time complexity: O(n)
+        Space complexity: O(n)
+        :param l: List with integers
+        :return: smallest positive number missing in a list.
+        """
+        if len(l) == 0:
+            return 1
+        seen = set()
+        max_ = l[0]
+        for el in l:
+            if el > 0:
+                seen.add(el)
+                max_ = max(max_, el)
+
+        for i in range(1, max_):
+            if i not in seen:
+                return i
+
+        return max_+1
