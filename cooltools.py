@@ -903,7 +903,8 @@ class Math:
 
         zero_fix is used to avoid division by 0
 
-        Time comple
+        Time complexity: O(2^n) where n represents how many times function f is
+        evaluated, which is n ~ 2^max_step
 
         :param f: function with single argument  f(x)
         :param a: lower bound
