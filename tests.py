@@ -1,5 +1,6 @@
 __author__ = 'smiks'
 import unittest
+from math import sin
 from cooltools import *
 
 
@@ -536,22 +537,52 @@ class Tests(unittest.TestCase):
         self.assertEqual(
             Math.trapezoidal_rule(lambda x: 1, 10, 5, 10),
             5,
-            "Testing Math.lra_riemann(lambda x: 1, 10, 5, 10)"
+            "Testing Math.trapezoidal_rule(lambda x: 1, 10, 5, 10)"
         )
         self.assertEqual(
             Math.trapezoidal_rule(lambda x: 0, 10, 5, 10),
             0,
-            "Testing Math.lra_riemann(lambda x: 0, 10, 5, 10)"
+            "Testing Math.trapezoidal_rule(lambda x: 0, 10, 5, 10)"
         )
         self.assertEqual(
             round(Math.trapezoidal_rule(lambda x: x, 100, 0, 1), 1),
             0.5,
-            "Testing Math.lra_riemann(lambda x: x, 100, 0, 1)"
+            "Testing Math.trapezoidal_rule(lambda x: x, 100, 0, 1)"
         )
         self.assertEqual(
             round(Math.trapezoidal_rule(lambda x: x, 100, -1, 1), 1),
             0,
-            "Testing Math.lra_riemann(lambda x: x, 100, 0, 1)"
+            "Testing Math.trapezoidal_rule(lambda x: x, 100, 0, 1)"
+        )
+        self.assertEqual(
+            round(Math.trapezoidal_rule(lambda x: sin(x)/x, 100, -1, 1), 3),
+            1.892,
+            "Testing Math.trapezoidal_rule(lambda x: sin(x)/x, 100, -1, 1)"
+        )
+        self.assertEqual(
+            round(Math.converg_approx_area(lambda x: x, -1, 1), 1),
+            0,
+            "Testing Math.converg_approx_area(lambda x: x, -1, 1)"
+        )
+        self.assertEqual(
+            round(Math.converg_approx_area(lambda x: x, 0, 1), 1),
+            0.5,
+            "Testing Math.converg_approx_area(lambda x: x, 0, 1)"
+        )
+        self.assertEqual(
+            round(Math.converg_approx_area(lambda x: sin(x)/x, -1, 1), 3),
+            1.892,
+            "Testing Math.converg_approx_area(lambda x: sin(x)/x, -1, 1)"
+        )
+        self.assertEqual(
+            round(Math.converg_approx_area(lambda x: sin(x)/x, -2, 2), 4),
+            3.2108,
+            "Testing Math.converg_approx_area(lambda x: sin(x)/x, -2, 2)"
+        )
+        self.assertEqual(
+            round(Math.converg_approx_area(lambda x: sin(x)/x, -4, 4, abs_=True), 4),
+            3.8913,
+            "Testing Math.converg_approx_area(lambda x: sin(x)/x, -4, 4)"
         )
 
     def test_algs(self):

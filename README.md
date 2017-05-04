@@ -1,4 +1,4 @@
-CoolTools v1.1
+CoolTools v1.2
 ==============
 
 It has following features.
@@ -51,6 +51,7 @@ __Class Math__
 - left_riemann_sum
 - right_riemann_sum
 - trapezoidal_rule
+- converg_approx_area
 
 __Class Algorithms__
 - jaccard_index

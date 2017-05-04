@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "1.1"
+__version__ = "1.2"
 
 
 class DimensionError(Exception):
@@ -829,44 +829,106 @@ class Math:
     def left_riemann_sum(f, n, a, b):
         """
         Returns left Riemann sum of function 'f'
-        with 'n' rectangles from 'a' to 'b'
+        with 'n' rectangles from 'a' to 'b'.
+
+        zero_fix is used to avoid division by 0
         :param f: function with single argument  f(x)
         :param n: number of rectangles
         :param a: lower bound
         :param b: upper bound
         :return:
         """
+        zero_fix = 1e-16
         dx = (b-a)/n
-        return sum(dx*f(xi) for xi in Numtools.frange(a, b, dx))
+        return sum(dx*f(xi+zero_fix) for xi in Numtools.frange(a, b, dx))
 
     @staticmethod
     def right_riemann_sum(f, n, a, b):
         """
         Returns right Riemann sum of function 'f'
         with 'n' rectangles from 'a' to 'b'
+
+        zero_fix is used to avoid division by 0
         :param f: function with single argument  f(x)
         :param n: number of rectangles
         :param a: lower bound
         :param b: upper bound
         :return:
         """
+        zero_fix = 1e-16
         dx = (b-a)/n
-        return sum(dx*f(xi+dx) for xi in Numtools.frange(a, b, dx))
+        return sum(dx*f(xi+dx+zero_fix) for xi in Numtools.frange(a, b, dx))
 
     @staticmethod
-    def trapezoidal_rule(f, n, a, b):
+    def trapezoidal_rule(f, n, a, b, abs_=False):
         """
         Returns average of left and right Riemann sum of function 'f'
         with 'n' rectangles from 'a' to 'b'.
         Average is same as trapezoidal rule.
+
+        zero_fix is used to avoid division by 0
         :param f: function with single argument  f(x)
         :param n: number of rectangles
         :param a: lower bound
         :param b: upper bound
+        :param abs_: flag if you want to calculate absolute area or not
         :return:
         """
+        zero_fix = 1e-16
         dx = (b-a)/n
-        return sum((dx*f(xi)+dx*f(xi+dx))/2 for xi in Numtools.frange(a, b, dx))
+        s = 0
+        cache = dict()
+        for xi in Numtools.frange(a, b, dx):
+
+            if xi+dx+zero_fix in cache:
+                l = cache[xi+dx+zero_fix]
+            else:
+                l = dx*f(xi+zero_fix)
+
+            r = dx*f(xi+dx+zero_fix)
+
+            if xi+dx+zero_fix not in cache:
+                cache[xi+dx+zero_fix] = r
+
+            a = (l+r)/2
+            s += abs(a) if abs_ else a
+        return s
+
+    @staticmethod
+    def converg_approx_area(f, a, b, eps=1e-4, max_step=10, abs_=False):
+        """
+        Funcion uses trapezoidal_rule with different 'n's.
+        Keeps increasing number of 'n's until difference between last two
+        calculations is less than 'eps'.
+
+        zero_fix is used to avoid division by 0
+
+        Time comple
+
+        :param f: function with single argument  f(x)
+        :param a: lower bound
+        :param b: upper bound
+        :param eps: convergence limit
+        :param max_step: how many steps before forced stop.
+            Each step doubles number of trapezoids ('n's).
+        :param abs_: flag if you want to calculate absolute area or not
+        :return:
+        """
+
+        n = 1
+        prev = 0
+        while max_step > 0:
+            curr = Math.trapezoidal_rule(f, n, a, b, abs_=abs_)
+            diff = abs(prev - curr)
+
+            if diff < eps:
+                return curr
+
+            n = n<<1
+            max_step -= 1
+            prev = curr
+
+        return curr
 
 
 class Algorithms:
