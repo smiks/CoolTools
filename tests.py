@@ -534,22 +534,22 @@ class Tests(unittest.TestCase):
             "Testing Math.right_riemann(lambda x: x, 100, 0, 1)"
         )
         self.assertEqual(
-            Math.lra_riemann_sum(lambda x: 1, 10, 5, 10),
+            Math.trapezoidal_rule(lambda x: 1, 10, 5, 10),
             5,
             "Testing Math.lra_riemann(lambda x: 1, 10, 5, 10)"
         )
         self.assertEqual(
-            Math.lra_riemann_sum(lambda x: 0, 10, 5, 10),
+            Math.trapezoidal_rule(lambda x: 0, 10, 5, 10),
             0,
             "Testing Math.lra_riemann(lambda x: 0, 10, 5, 10)"
         )
         self.assertEqual(
-            round(Math.lra_riemann_sum(lambda x: x, 100, 0, 1), 1),
+            round(Math.trapezoidal_rule(lambda x: x, 100, 0, 1), 1),
             0.5,
             "Testing Math.lra_riemann(lambda x: x, 100, 0, 1)"
         )
         self.assertEqual(
-            round(Math.lra_riemann_sum(lambda x: x, 100, -1, 1), 1),
+            round(Math.trapezoidal_rule(lambda x: x, 100, -1, 1), 1),
             0,
             "Testing Math.lra_riemann(lambda x: x, 100, 0, 1)"
         )

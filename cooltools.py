@@ -854,10 +854,11 @@ class Math:
         return sum(dx*f(xi+dx) for xi in Numtools.frange(a, b, dx))
 
     @staticmethod
-    def lra_riemann_sum(f, n, a, b):
+    def trapezoidal_rule(f, n, a, b):
         """
         Returns average of left and right Riemann sum of function 'f'
-        with 'n' rectangles from 'a' to 'b'
+        with 'n' rectangles from 'a' to 'b'.
+        Average is same as trapezoidal rule.
         :param f: function with single argument  f(x)
         :param n: number of rectangles
         :param a: lower bound

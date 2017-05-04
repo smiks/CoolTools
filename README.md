@@ -50,7 +50,7 @@ __Class Math__
 - reduced_fractions
 - left_riemann_sum
 - right_riemann_sum
-- lra_riemann_sum
+- trapezoidal_rule
 
 __Class Algorithms__
 - jaccard_index
