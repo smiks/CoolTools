@@ -60,7 +60,7 @@ class Primes:
         while i <= limit:
             if primes[i]:
                 j = 2 * i
-                while j < n:
+                while j <= n:
                     primes[j] = False
                     j += i
             i += 2
