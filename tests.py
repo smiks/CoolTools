@@ -584,6 +584,14 @@ class Tests(unittest.TestCase):
             3.8913,
             "Testing Math.converg_approx_area(lambda x: sin(x)/x, -4, 4)"
         )
+        matrix = [[-27, 9, -3, 1, -53],[-8, 4, -2, 1, -18],[8, 4, 2, 1, 2],[27, 9, 3, 1, 7]]
+        matrix = Math.reduced_row_echelon_form(matrix)
+        lc = [round(r[-1],2) for r in matrix]
+        self.assertEqual(
+            lc,
+            [1, -3, 1, 4],
+            "Testing Math.reduced_row_echelon_form(matrix)"
+        )
 
     def test_algs(self):
         self.assertEqual(

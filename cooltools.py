@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "1.2"
+__version__ = "1.3"
 
 
 class DimensionError(Exception):
@@ -930,6 +930,44 @@ class Math:
             prev = curr
 
         return curr
+
+    @staticmethod
+    def reduced_row_echelon_form(matrix, copy=False):
+        """
+        Returns reduced row echelon form of matrix.
+        :param matrix: given matrix presented as list of lists
+        :param copy: If copy is set to True,
+        matrix will be copied (using extra O(n)) space.
+        If false, same matrix will be used (mutable).
+        :return:
+        """
+        if copy:
+            matrix = matrix[::]
+        if not matrix: return
+        lead = 0
+        row_count = len(matrix)
+        column_count = len(matrix[0])
+        for r in range(row_count):
+            if lead >= column_count:
+                return matrix
+            i = r
+            while matrix[i][lead] == 0:
+                i += 1
+                if i == row_count:
+                    i = r
+                    lead += 1
+                    if column_count == lead:
+                        return matrix
+            matrix[i], matrix[r] = matrix[r], matrix[i]
+            lv = matrix[r][lead]
+            matrix[r] = [mrx/lv for mrx in matrix[r]]
+            for i in range(row_count):
+                if i != r:
+                    lv = matrix[i][lead]
+                    matrix[i] = [iv - lv * rv for rv, iv in zip(matrix[r], matrix[i])]
+            lead += 1
+
+        return matrix
 
 
 class Algorithms:
