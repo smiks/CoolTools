@@ -592,6 +592,32 @@ class Tests(unittest.TestCase):
             [1, -3, 1, 4],
             "Testing Math.reduced_row_echelon_form(matrix)"
         )
+        a, m = "10", 5
+        self.assertEqual(
+            Math.a_mod_m(a, m), 0,
+            "Testing Math.a_mod_m(10, 5)"
+        )
+        a, m = "1000000000000000000000000000000", 2
+        self.assertEqual(
+            Math.a_mod_m(a, m), 0,
+            "Testing Math.a_mod_m(1000000000000000000000000000000, 5)"
+        )
+        a, m = 1000000000000000000000000000000, 2
+        self.assertEqual(
+            Math.a_mod_m(a, m), 0,
+            "Testing Math.a_mod_m(1000000000000000000000000000000, 5)"
+        )
+        a, m = 0, 0
+        self.assertEqual(
+            Math.a_mod_m(a, m), -1,
+            "Testing Math.a_mod_m(0, 0)"
+        )
+        a, m = "asd", 3
+        self.assertEqual(
+            Math.a_mod_m(a, m), -1,
+            "Testing Math.a_mod_m(asd, 3)"
+        )
+
 
     def test_algs(self):
         self.assertEqual(

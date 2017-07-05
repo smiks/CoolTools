@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "1.3"
+__version__ = "1.4"
 
 
 class DimensionError(Exception):
@@ -968,6 +968,37 @@ class Math:
             lead += 1
 
         return matrix
+
+    @staticmethod
+    def a_mod_m(a, m):
+        """
+        Calculates modulus of a%m.
+        Useful for a large 'a'.
+        :param a: number represented as a string
+        :param m: integer
+        :return: Returns modulus a%m
+
+        In case of error, function returns -1
+        """
+
+        if type(a) is not str:
+            a = str(a)
+
+        try:
+            _ = int(a)
+        except:
+            return -1
+
+        if m == 0:
+            return -1
+
+        n = 0
+
+        for i in range(len(a)):
+            n = (n*10 + int(a[i])) % m
+
+        return n
+
 
 
 class Algorithms:

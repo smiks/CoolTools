@@ -1,4 +1,4 @@
-CoolTools v1.3
+CoolTools v1.4
 ==============
 
 It has following features.
@@ -53,6 +53,7 @@ __Class Math__
 - trapezoidal_rule
 - converg_approx_area
 - reduced_row_echelon_form
+- a_mod_m
 
 __Class Algorithms__
 - jaccard_index
@@ -71,6 +72,7 @@ __Class Algorithms__
 
 
 
-_Note_ <br>
-&nbsp; ```fact_sum_divby_fact``` explanation
-&nbsp; ![image of fact_sum_divby_fact](fact_sum_divby_fact_img.gif)
+_Note_ <br><br>
+&nbsp; explanation: <br><br>
+&nbsp; ```fact_sum_divby_fact``` :<br>
+&nbsp;&nbsp;&nbsp;&nbsp; ![image of fact_sum_divby_fact](fact_sum_divby_fact_img.gif)
