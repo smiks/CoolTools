@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "1.4"
+__version__ = "1.5"
 
 
 class DimensionError(Exception):
@@ -976,9 +976,9 @@ class Math:
         Useful for a large 'a'.
         :param a: number represented as a string
         :param m: integer
-        :return: Returns modulus a%m
+        :return: Returns integer modulus a%m
 
-        In case of error, function returns -1
+        In case of error, function returns -1.
         """
 
         if type(a) is not str:
@@ -999,7 +999,39 @@ class Math:
 
         return n
 
+    @staticmethod
+    def a_pow_b_mod_m(a, b, m):
+        """
+        Calculates (a^b) % m.
+        Useful for a large 'a'.
+        :param a: number represented as a string
+        :param b: integer
+        :param m: integer
+        :return: Returns integer (a^b) % m
 
+        In case of error, function returns -1.
+        """
+
+        if type(a) is not str:
+            a = str(a)
+
+        try:
+            _ = int(a)
+        except:
+            return -1
+
+        if m == 0:
+            return -1
+
+        if b == 0:
+            return 1
+
+        mul = amm = Math.a_mod_m(a, m)
+
+        for i in range(1, b):
+            amm = (amm*mul) % m
+
+        return amm
 
 class Algorithms:
     """

@@ -617,6 +617,31 @@ class Tests(unittest.TestCase):
             Math.a_mod_m(a, m), -1,
             "Testing Math.a_mod_m(asd, 3)"
         )
+        a, b, m = "1000", 3, 10
+        self.assertEqual(
+            Math.a_pow_b_mod_m(a, b, m), 0,
+            "Testing Math.a_mod_m(1000, 3, 10)"
+        )
+        a, b, m = "100000000000000000000000000000000", 10, 10
+        self.assertEqual(
+            Math.a_pow_b_mod_m(a, b, m), 0,
+            "Testing Math.a_mod_m(100000000000000000000000000000000, 10, 10)"
+        )
+        a, b, m = "1000", 10, 0
+        self.assertEqual(
+            Math.a_pow_b_mod_m(a, b, m), -1,
+            "Testing Math.a_mod_m(1000, 10, 0)"
+        )
+        a, b, m = "1000", 0, 10
+        self.assertEqual(
+            Math.a_pow_b_mod_m(a, b, m), 1,
+            "Testing Math.a_mod_m(1000, 0, 10)"
+        )
+        a, b, m = "0", 0, 10
+        self.assertEqual(
+            Math.a_pow_b_mod_m(a, b, m), 1,
+            "Testing Math.a_mod_m(0, 0, 10)"
+        )
 
 
     def test_algs(self):

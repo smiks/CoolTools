@@ -1,4 +1,4 @@
-CoolTools v1.4
+CoolTools v1.5
 ==============
 
 It has following features.
@@ -54,6 +54,7 @@ __Class Math__
 - converg_approx_area
 - reduced_row_echelon_form
 - a_mod_m
+- a_pow_b_mod_m
 
 __Class Algorithms__
 - jaccard_index
