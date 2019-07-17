@@ -1421,3 +1421,49 @@ class Algorithms:
                 return i
 
         return max_+1
+
+    @staticmethod
+    def dijkstra(edges, start, end, directed=True):
+        """
+
+        :param edges: List of distances.
+        [
+            (node1, node2, distance)...
+        ]
+        :param start: Starting Node
+        :param end: End Node
+        :return: Tuple: (shortest distance, path)
+        """
+
+        from collections import defaultdict
+        from heapq import heappop, heappush
+        from math import inf
+
+        visited = set()
+        queue = [(0, start, ())]
+        minimums = {start: 0}
+
+        graph = defaultdict(list)
+        for e in edges:
+            graph[e[0]].append((e[2], e[1]))
+            if not directed:
+                graph[e[1]].append((e[2], e[0]))
+
+        while len(queue):
+            (distance, node, path) = heappop(queue)
+            if node in visited:
+                continue
+            visited.add(node)
+            path += (node,)
+
+            if node == end:
+                return distance, path
+
+            for dist, neighbour in graph.get(node, ()):
+                new_distance = distance + dist
+                old_distance = minimums.get(neighbour, inf)
+                if new_distance < old_distance:
+                    minimums[neighbour] = new_distance
+                    heappush(queue, (new_distance, neighbour, path))
+
+        return inf

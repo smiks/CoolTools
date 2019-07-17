@@ -897,6 +897,27 @@ class Tests(unittest.TestCase):
             "Testing smallest_positive_missing([])"
         )
 
+        graph = [(0, 1, 3), (0, 3, 1), (0, 2, 1), (0, 4, 10), (3, 4, 2)]
+        self.assertEqual(
+            Algorithms.dijkstra(graph, 0, 4),
+            (3, (0, 3, 4)),
+            "Testing dijkstra"
+        )
+
+        graph = [(0, 1, 3), (4,1,1)]
+        self.assertEqual(
+            Algorithms.dijkstra(graph, 0, 4),
+            float("inf"),
+            "Testing dijkstra with disconnected graph"
+        )
+
+        graph = []
+        self.assertEqual(
+            Algorithms.dijkstra(graph, 0, 4),
+            float("inf"),
+            "Testing dijkstra with empty graph"
+        )
+
 if __name__ == "__main__":
     tests = Tests()
 
