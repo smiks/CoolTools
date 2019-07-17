@@ -70,6 +70,7 @@ __Class Algorithms__
 - lis
 - kth_smallest
 - smallest_positive_missing
+- dijkstra
 
 
 

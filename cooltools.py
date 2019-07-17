@@ -14,7 +14,7 @@ Passed compatibility tests for Python 3.4 and Python 3.5.
 """
 
 __author__ = "smiks"
-__version__ = "1.5"
+__version__ = "1.6"
 
 
 class DimensionError(Exception):
